@@ -5,7 +5,6 @@ const imageOptions = {
 }
 
 const __preLayer0Export = {
-  optimizeFonts: false,
   reactStrictMode: true,
   layer0SourceMaps: true,
   images: imageOptions,
