@@ -15,6 +15,10 @@ router.get('/static/:file', ({ cache, serveStatic }) => {
   cache(assetCache)
   serveStatic('public/static/:file')
 })
+router.match('/fonts/:file', ({ cache, serveStatic }) => {
+  cache(assetCache)
+  serveStatic('public/fonts/:file')
+})
 
 router.match('/api/:path*', ({ setResponseHeader }) => {
   setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')

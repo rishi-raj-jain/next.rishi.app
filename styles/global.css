@@ -11,3 +11,11 @@ body.dark ::selection {
   color: black;
   background: white;
 }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url(/fonts/inter-var.woff2) format('woff2');
+}
