@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { useTheme } from 'next-themes'
-import { materialPrefixLink } from '@/lib/data'
 import { Fragment, useEffect, useState } from 'react'
 
 const Article = ({ post }) => {
@@ -15,7 +14,7 @@ const Article = ({ post }) => {
         <link
           rel="stylesheet"
           media={mounted ? 'all' : 'print'}
-          href={`${materialPrefixLink}${mounted ? theme === 'system' ? 'light' : theme : 'light'}.css`}
+          href={`/css/${mounted ? (theme === 'system' ? 'light' : theme) : 'light'}.css`}
         />
       </Head>
       <article

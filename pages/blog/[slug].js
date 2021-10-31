@@ -37,16 +37,8 @@ export default function Post({ content, post, morePosts }) {
   return (
     <div className="w-full flex flex-col items-center">
       <SEO {...SEODetails}>
-        <link
-          as="script"
-          rel="preload"
-          href="https://unpkg.com/prism-themes@1.9.0/themes/prism-material-light.css"
-        />
-        <link
-          as="script"
-          rel="preload"
-          href="https://unpkg.com/prism-themes@1.9.0/themes/prism-material-dark.css"
-        />
+        <link as="script" rel="preload" href="/css/light.css" />
+        <link as="script" rel="preload" href="/css/dark.css" />
       </SEO>
       <div className="w-full md:max-w-2xl">
         <h1 className="font-bold text-2xl sm:text-4xl">{post.content.title}</h1>
