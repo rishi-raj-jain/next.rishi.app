@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import SEO from '@/components/seo-head'
 import { deploymentUrl } from '@/lib/data'
 import TimelineItem from '@/components/TimelineItem'
-import RichTextResolver from 'storyblok-js-client/dist/richTextResolver'
+import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const About = ({ Timeline, aboutTagline }) => {
   const SEODetails = {

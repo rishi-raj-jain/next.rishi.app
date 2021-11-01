@@ -4,7 +4,7 @@ import SEO from '@/components/seo-head'
 import { deploymentUrl } from '@/lib/data'
 import { shimmer, toBase64 } from '@/lib/shimmer'
 import SocialLinks from '@/components/social-links'
-import RichTextResolver from 'storyblok-js-client/dist/richTextResolver'
+import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const Home = ({ homeTagline }) => {
   return (

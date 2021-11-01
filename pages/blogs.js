@@ -6,7 +6,7 @@ import { Prefetch } from '@layer0/react'
 import DateString from '@/components/DateString'
 import { Fragment, useEffect, useState } from 'react'
 import { deploymentUrl, imageLink } from '@/lib/data'
-import RichTextResolver from 'storyblok-js-client/dist/richTextResolver'
+import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
   const [mounted, setMounted] = useState(false)

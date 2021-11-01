@@ -1,5 +1,5 @@
 import Heart from '@/components/Heart'
-import RichTextResolver from 'storyblok-js-client/dist/richTextResolver'
+import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const TimelineItem = ({ Title, Description }) => {
   return (
