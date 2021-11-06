@@ -3,7 +3,7 @@ import { useState } from 'react'
 const SocialMediaLinks = ({ className, url, altText }) => {
   const [ifLink, setIfLink] = useState(false)
   return (
-    <div className={`${className ?? ''} text-gray-400 flex flex-row space-x-3`}>
+    <div className={`${className ?? ''} text-black dark:text-white flex flex-row space-x-3`}>
       <a
         target="_blank"
         rel="noopener noreferrer"
@@ -33,7 +33,7 @@ const SocialMediaLinks = ({ className, url, altText }) => {
             fillRule="evenodd"
             clipRule="evenodd"
             d="M10.76 20.9v-8.57H7.89v8.58h2.87zm-1.44-9.75c1 0 1.63-.65 1.63-1.48-.02-.84-.62-1.48-1.6-1.48-.99 0-1.63.64-1.63 1.48 0 .83.62 1.48 1.59 1.48h.01zM12.35 20.9h2.87v-4.79c0-.25.02-.5.1-.7.2-.5.67-1.04 1.46-1.04 1.04 0 1.46.8 1.46 1.95v4.59h2.87v-4.92c0-2.64-1.42-3.87-3.3-3.87-1.55 0-2.23.86-2.61 1.45h.02v-1.24h-2.87c.04.8 0 8.58 0 8.58z"
-            fill="#fff"
+            className="text-white dark:text-black"
           ></path>
         </svg>
       </a>
