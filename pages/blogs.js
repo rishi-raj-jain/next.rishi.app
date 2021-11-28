@@ -41,7 +41,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
                 </span>
                 <Link href={`/blog/${item.slug}`}>
                   <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                    <a className="hidden mt-3 hover:underline">
+                    <a className="hidden mt-3 hover:underline" href={`/blog/${item.slug}`}>
                       <span className="font-bold text-lg sm:text-2xl">{item.content.title}</span>
                     </a>
                   </Prefetch>
@@ -49,7 +49,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
                 {item?.content?.image && (
                   <Link href={`/blog/${item.slug}`}>
                     <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                      <a className="mt-3 mb-3 block hover:underline w-full rounded bg-gray-50">
+                      <a className="mt-3 mb-3 block hover:underline w-full rounded bg-gray-50" href={`/blog/${item.slug}`}>
                         <Image
                           alt={item.content.image}
                           title={item.content.image}
@@ -66,7 +66,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
                 </span>
                 <Link href={`/blog/${item.slug}`}>
                   <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                    <a className="hover:underline text-blue-500 mt-5 uppercase text-sm">
+                    <a className="hover:underline text-blue-500 mt-5 uppercase text-sm" href={`/blog/${item.slug}`}>
                       Read More &rarr;
                     </a>
                   </Prefetch>

@@ -18,7 +18,7 @@ const MorePosts = ({ morePosts }) => {
         {filteredPosts.map((item) => (
           <Link href={`/blog/${item.slug}`} key={item.slug}>
             <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-              <a className="mt-10 block w-full">
+              <a className="mt-10 block w-full" href={`/blog/${item.slug}`}>
                 <Image
                   alt={item.name}
                   title={item.name}
