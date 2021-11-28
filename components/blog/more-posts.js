@@ -16,8 +16,8 @@ const MorePosts = ({ morePosts }) => {
     filteredPosts.length > 0 && (
       <div className="flex flex-col">
         {filteredPosts.map((item) => (
-          <Link href={`/blog/${item.slug}`} key={item.slug} passHref>
-            <Prefetch>
+          <Link href={`/blog/${item.slug}`} key={item.slug}>
+            <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
               <a className="mt-10 block w-full">
                 <Image
                   alt={item.name}

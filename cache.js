@@ -16,3 +16,16 @@ exports.assetCache = {
     serviceWorkerSeconds: 60 * 60 * 24,
   },
 }
+
+exports.NEXT_CACHE_HANDLER = ({ removeUpstreamResponseHeader, cache }) => {
+  removeUpstreamResponseHeader('cache-control')
+  cache({
+    browser: {
+      maxAgeSeconds: 0,
+      serviceWorkerSeconds: 60,
+    },
+    edge: {
+      maxAgeSeconds: 60,
+    },
+  })
+}

@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import SEO from '@/components/Seo'
 import Image from '@/components/Image'
 import { useTheme } from 'next-themes'
-import SEO from '@/components/seo-head'
 import { Prefetch } from '@layer0/react'
 import DateString from '@/components/DateString'
 import { Fragment, useEffect, useState } from 'react'
@@ -39,16 +39,16 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
                 <span className="dark:text-gray-400 text-gray-700">
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
-                <Link href={`/blog/${item.slug}`} passHref>
-                  <Prefetch>
+                <Link href={`/blog/${item.slug}`}>
+                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
                     <a className="hidden mt-3 hover:underline">
                       <span className="font-bold text-lg sm:text-2xl">{item.content.title}</span>
                     </a>
                   </Prefetch>
                 </Link>
                 {item?.content?.image && (
-                  <Link href={`/blog/${item.slug}`} passHref>
-                    <Prefetch>
+                  <Link href={`/blog/${item.slug}`}>
+                    <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
                       <a className="mt-3 mb-3 block hover:underline w-full rounded bg-gray-50">
                         <Image
                           alt={item.content.image}
@@ -64,8 +64,8 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
                 <span className="mt-3 dark:text-gray-400 text-gray-700 line-clamp-2 text-md sm:text-lg">
                   {item.content.intro}
                 </span>
-                <Link href={`/blog/${item.slug}`} passHref>
-                  <Prefetch>
+                <Link href={`/blog/${item.slug}`}>
+                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
                     <a className="hover:underline text-blue-500 mt-5 uppercase text-sm">
                       Read More &rarr;
                     </a>

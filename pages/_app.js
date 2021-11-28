@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Metrics } from '@layer0/rum'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
+import { prefetch } from '@layer0/prefetch/window/prefetch'
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -10,6 +11,15 @@ const MyApp = ({ Component, pageProps }) => {
       new Metrics({
         token: '9d02f940-a21a-4f30-adfc-a042990c593a',
       }).collect()
+    }
+    // register a listener for SW messages to prefetch images from the PLP API responses
+    const { serviceWorker } = navigator
+    if (serviceWorker) {
+      serviceWorker.addEventListener('message', (event) => {
+        if (event.data.action === 'prefetch') {
+          prefetch(event.data.url, event.data.as, event.data.options)
+        }
+      })
     }
   }, [])
 

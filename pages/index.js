@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import NextImage from 'next/image'
-import SEO from '@/components/seo-head'
+import SEO from '@/components/Seo'
 import { deploymentUrl } from '@/lib/data'
 import { shimmer, toBase64 } from '@/lib/shimmer'
 import SocialLinks from '@/components/social-links'

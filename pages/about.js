@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import SEO from '@/components/seo-head'
+import SEO from '@/components/Seo'
 import { deploymentUrl } from '@/lib/data'
 import TimelineItem from '@/components/TimelineItem'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
+import SEO from '@/components/Seo'
 import Image from '@/components/Image'
 import { useTheme } from 'next-themes'
-import SEO from '@/components/seo-head'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import { useEffect, useState } from 'react'
