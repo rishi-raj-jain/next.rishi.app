@@ -9,7 +9,7 @@ const SEO = ({
   pubDate,
   canonical,
   author,
-  faviconImage = `${deploymentUrl}/static/favicon-image.jpeg`,
+  faviconImage = `${deploymentUrl}/static/favicon-image.jpg`,
   children
 }) => {
   const Title = `${title ?? defaultTitle}`.trim()

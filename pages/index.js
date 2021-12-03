@@ -19,7 +19,7 @@ const Home = ({ homeTagline }) => {
               quality={30}
               placeholder="blur"
               className="grayscale rounded-full"
-              src={`${deploymentUrl}/static/favicon-image.jpeg`}
+              src={`${deploymentUrl}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -46,7 +46,7 @@ const Home = ({ homeTagline }) => {
               quality={50}
               placeholder="blur"
               className="rounded object-cover"
-              src={`${deploymentUrl}/static/favicon-image.jpeg`}
+              src={`${deploymentUrl}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
