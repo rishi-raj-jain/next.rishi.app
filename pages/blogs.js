@@ -1,25 +1,18 @@
 import Link from 'next/link'
 import SEO from '@/components/Seo'
-import Image from '@/components/Image'
-import { useTheme } from 'next-themes'
 import { Prefetch } from '@layer0/react'
+import { deploymentUrl } from '@/lib/data'
 import DateString from '@/components/DateString'
-import { Fragment, useEffect, useState } from 'react'
-import { deploymentUrl, imageLink } from '@/lib/data'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
-  const [mounted, setMounted] = useState(false)
-  const { theme } = useTheme()
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
     canonical: `${deploymentUrl}/blogs`,
   }
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+
   return (
-    <Fragment>
+    <>
       <SEO {...SEODetails} />
       <div className="flex flex-col">
         <h1 className="font-bold text-2xl sm:text-5xl">Blogs</h1>
@@ -33,40 +26,40 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
           <div className="mt-10 lg:mt-20 w-full lg:w-2/3 lg:pr-10 flex flex-col">
             {allPosts.map((item) => (
               <div
-                className="border-b dark:border-gray-700 pb-10 mb-10 flex flex-col"
                 key={`/blog/${item.slug}`}
+                className="border-b dark:border-gray-700 pb-10 mb-10 flex flex-col"
               >
                 <span className="dark:text-gray-400 text-gray-700">
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                    <a className="hidden mt-3 hover:underline" href={`/blog/${item.slug}`}>
+                  <Prefetch
+                    url={
+                      process.browser
+                        ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json`
+                        : `/blog/${item.slug}`
+                    }
+                  >
+                    <a className="mt-3 hover:underline" href={`/blog/${item.slug}`}>
                       <span className="font-bold text-lg sm:text-2xl">{item.content.title}</span>
                     </a>
                   </Prefetch>
                 </Link>
-                {item?.content?.image && (
-                  <Link href={`/blog/${item.slug}`}>
-                    <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                      <a className="mt-3 mb-3 block hover:underline w-full rounded bg-gray-50" href={`/blog/${item.slug}`}>
-                        <Image
-                          alt={item.content.image}
-                          title={item.content.image}
-                          src={`${imageLink}/api?title=${item.content.title}&image=${
-                            item.content.image
-                          }${mounted ? (theme == 'light' ? '' : '&mode=o') : ''}`}
-                        />
-                      </a>
-                    </Prefetch>
-                  </Link>
-                )}
-                <span className="mt-3 dark:text-gray-400 text-gray-700 line-clamp-2 text-md sm:text-lg">
+                <span className="mt-3 dark:text-gray-400 text-gray-700 line-clamp-2 text-sm">
                   {item.content.intro}
                 </span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
-                    <a className="hover:underline text-blue-500 mt-5 uppercase text-sm" href={`/blog/${item.slug}`}>
+                  <Prefetch
+                    url={
+                      process.browser
+                        ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json`
+                        : `/blog/${item.slug}`
+                    }
+                  >
+                    <a
+                      href={`/blog/${item.slug}`}
+                      className="hover:underline text-blue-500 mt-5 uppercase text-sm"
+                    >
                       Read More &rarr;
                     </a>
                   </Prefetch>
@@ -78,11 +71,11 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
             <h4 className="font-bold text-md sm:text-lg">Recommended Posts</h4>
             {recommendedPosts.map((item) => (
               <a
-                key={item.content.Title}
-                className="mt-5 pb-2 border-b dark:border-gray-700 hover:underline truncate dark:text-gray-400 text-gray-500 text-sm"
-                target="_blank"
                 rel="noopener"
+                target="_blank"
+                key={item.content.Title}
                 href={item.content.Url.url}
+                className="mt-5 pb-2 border-b dark:border-gray-700 hover:underline truncate dark:text-gray-400 text-gray-500 text-sm"
               >
                 {item.content.Title}
               </a>
@@ -90,7 +83,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </>
   )
 }
 
