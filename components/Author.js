@@ -1,7 +1,6 @@
 import NextImage from 'next/image'
-import DateString from './DateString'
 
-const Author = ({ author, pubDate, post }) => {
+const Author = ({ author, post }) => {
   return (
     <div className="flex flex-row items-center space-x-3">
       <NextImage
@@ -12,11 +11,16 @@ const Author = ({ author, pubDate, post }) => {
         title={author}
         src={post.content.author.content.picture.filename}
       />
-      <span className="hidden sm:block text-[16px]">{author}</span>
-      <span>/</span>
-      <span className="text-[16px]">
-        <DateString date={new Date(pubDate)} />
-      </span>
+      <div className="flex flex-col">
+        <span className="text-sm">{author}</span>
+        <a
+          className="text-blue-500 text-xs"
+          href="https://twitter.com/rishi_raj_jain_"
+          target="_blank"
+        >
+          {'@rishi_raj_jain_'}
+        </a>
+      </div>
     </div>
   )
 }

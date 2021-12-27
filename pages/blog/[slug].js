@@ -1,14 +1,13 @@
 import dynamic from 'next/dynamic'
 import SEO from '@/components/Seo'
-import Image from '@/components/Image'
 import { useTheme } from 'next-themes'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import { useEffect, useState } from 'react'
 import markdownToHtml from '@/lib/markdown'
+import DateString from '@/components/DateString'
 import { deploymentUrl, imageLink } from '@/lib/data'
 import { getComments } from '@/components/blog/comments'
-import SocialMediaLinks from '@/components/social-media-links'
 
 const LoadComments = dynamic(
   () => import('@/components/blog/comments').then((mod) => mod.LoadComments),
@@ -41,19 +40,14 @@ export default function Post({ content, post, morePosts }) {
         <link as="script" rel="preload" href="/css/dark.css" />
       </SEO>
       <div className="w-full md:max-w-2xl">
-        <h1 className="font-bold text-2xl sm:text-4xl">{post.content.title}</h1>
-        <div className="mt-5 flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
+        <div className="w-full flex flex-col items-center">
+          <DateString date={new Date(SEODetails.pubDate)} />
+          <h1 className="mt-3 mb-7 text-center font-bold text-2xl sm:text-4xl">
+            {post.content.title}
+          </h1>
           <Author post={post} {...SEODetails} />
-          <SocialMediaLinks altText={post.content.title} url={SEODetails['canonical']} />
         </div>
-        <div className="py-3"></div>
-        <Image
-          alt={post.content.title}
-          title={post.content.title}
-          src={`${imageLink}/api?title=${post.content.title}&image=${post.content.image}${
-            mounted ? (theme == 'light' ? '' : '&mode=o') : ''
-          }`}
-        />
+        <div className="mt-7 w-full h-[1px] bg-gray-200"></div>
         <Article post={post} />
         <WriteComment setComments={setComments} slug={post.slug} />
         <div className="mt-10 pt-10 w-full border-t dark:border-gray-500">

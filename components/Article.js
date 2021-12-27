@@ -18,7 +18,7 @@ const Article = ({ post }) => {
         />
       </Head>
       <article
-        className="prose dark:prose-light max-w-none mt-10"
+        className="prose dark:prose-light max-w-none mt-10 text-sm"
         dangerouslySetInnerHTML={{ __html: post.content.long_text }}
       />
     </Fragment>
