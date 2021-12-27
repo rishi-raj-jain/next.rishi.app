@@ -1,4 +1,5 @@
 {
+  "name": "rishi",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -11,8 +12,6 @@
     "sitemap": "node scripts/generate-sitemap.js",
     "format": "prettier '**/*' --ignore-unknown --write"
   },
-  "name": "rishi",
-  "version": "1.0.0",
   "dependencies": {
     "@layer0/rum": "^2.1.3",
     "firebase-admin": "8.12.1",

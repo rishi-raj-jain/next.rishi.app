@@ -2,6 +2,7 @@ import Link from 'next/link'
 import SEO from '@/components/Seo'
 import { Prefetch } from '@layer0/react'
 import { deploymentUrl } from '@/lib/data'
+import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
@@ -22,6 +23,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
             __html: new RichTextResolver().render(blogsTagline),
           }}
         />
+        <SearchBar content={allPosts} />
         <div className="flex flex-row flex-wrap">
           <div className="mt-10 lg:mt-20 w-full lg:w-2/3 lg:pr-10 flex flex-col">
             {allPosts.map((item) => (
