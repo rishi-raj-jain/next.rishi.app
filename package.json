@@ -9,7 +9,6 @@
     "layer0:build": "layer0 build",
     "layer0:deploy": "layer0 deploy",
     "layer0:prod": "layer0 run --production",
-    "sitemap": "node scripts/generate-sitemap.js",
     "format": "prettier '**/*' --ignore-unknown --write"
   },
   "dependencies": {
@@ -29,9 +28,8 @@
   },
   "prettier": {
     "semi": false,
-    "tabWidth": 2,
-    "printWidth": 100,
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 100
   },
   "devDependencies": {
     "@layer0/cli": "^4.5.0",
@@ -43,8 +41,6 @@
     "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.2.5",
-    "dotenv": "^10.0.0",
-    "globby": "^11.0.3",
     "postcss": "^8.2.10",
     "prettier": "^2.3.0",
     "tailwindcss": "^2.1.1"

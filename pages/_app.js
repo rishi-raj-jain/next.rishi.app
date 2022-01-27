@@ -5,13 +5,14 @@ import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
 import { prefetch } from '@layer0/prefetch/window/prefetch'
 
+if (process.env.NODE_ENV == 'production') {
+  new Metrics({
+    token: '16dbca52-84e4-4087-96d7-1d0aab0c4421',
+  }).collect()
+}
+
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
-    if (process.env.NODE_ENV == 'production') {
-      new Metrics({
-        token: '9d02f940-a21a-4f30-adfc-a042990c593a',
-      }).collect()
-    }
     // register a listener for SW messages to prefetch images from the PLP API responses
     const { serviceWorker } = navigator
     if (serviceWorker) {
