@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Metrics } from '@layer0/rum'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
-import { prefetch } from '@layer0/prefetch/window/prefetch'
+import { install, prefetch } from '@layer0/prefetch/window'
 
 if (process.env.NODE_ENV == 'production') {
   new Metrics({
@@ -13,15 +13,33 @@ if (process.env.NODE_ENV == 'production') {
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
-    // register a listener for SW messages to prefetch images from the PLP API responses
-    const { serviceWorker } = navigator
-    if (serviceWorker) {
-      serviceWorker.addEventListener('message', (event) => {
-        if (event.data.action === 'prefetch') {
-          prefetch(event.data.url, event.data.as, event.data.options)
-        }
-      })
-    }
+    install({
+      watch: [
+        {
+          selector: 'body',
+          callback: (el) => {
+            var oldHref = document.location.href
+            var bodyList = document.querySelector('body')
+            var observer = new MutationObserver(function (mutations) {
+              mutations.forEach(function (mutation) {
+                if (oldHref != document.location.href) {
+                  oldHref = document.location.href
+                  if (document.location.pathname.endsWith('blogs')) {
+                    prefetch('/css/dark.css')
+                    prefetch('/css/light.css')
+                  }
+                }
+              })
+            })
+            var config = {
+              childList: true,
+              subtree: true,
+            }
+            observer.observe(bodyList, config)
+          },
+        },
+      ],
+    })
   }, [])
 
   return (
