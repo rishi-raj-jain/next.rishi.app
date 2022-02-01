@@ -17,6 +17,7 @@ const MyApp = ({ Component, pageProps }) => {
       if (document.location.pathname.endsWith('blogs')) {
         prefetch('/css/dark.css')
         prefetch('/css/light.css')
+        prefetch('/_next/image?url=https%3A%2F%2Fa.storyblok.com%2Ff%2F117912%2F30x30%2F11c98f9b8f%2Frishi.png&w=64&q=30')
       }
     }
     install({
