@@ -13,6 +13,12 @@ if (process.env.NODE_ENV == 'production') {
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
+    const prefetchCSS = () => {
+      if (document.location.pathname.endsWith('blogs')) {
+        prefetch('/css/dark.css')
+        prefetch('/css/light.css')
+      }
+    }
     install({
       watch: [
         {
@@ -20,14 +26,12 @@ const MyApp = ({ Component, pageProps }) => {
           callback: (el) => {
             var oldHref = document.location.href
             var bodyList = document.querySelector('body')
+            prefetchCSS()
             var observer = new MutationObserver(function (mutations) {
               mutations.forEach(function (mutation) {
                 if (oldHref != document.location.href) {
                   oldHref = document.location.href
-                  if (document.location.pathname.endsWith('blogs')) {
-                    prefetch('/css/dark.css')
-                    prefetch('/css/light.css')
-                  }
+                  prefetchCSS()
                 }
               })
             })
