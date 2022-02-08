@@ -25,6 +25,15 @@ const Navbar = () => {
   }, [])
   return (
     <div className="sticky top-0 z-10 backdrop-filter backdrop-blur-xl w-full flex flex-col items-center">
+      <a
+        target="_blank"
+        href="https://try.layer0.co/nextjs-storyblok/"
+        className={`w-full ${
+          theme === 'light' ? 'bg-white text-black' : 'bg-black text-white'
+        } border-b border-gray-600 flex flex-row items-center justify-center`}
+      >
+        <h2>Coming in from JSWORLD Conference? &rarr;</h2>
+      </a>
       <div className="w-full max-w-[90vw] lg:max-w-[75vw] sm:px-10 flex flex-row items-center justify-between">
         <button
           onClick={() => {
