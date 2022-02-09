@@ -16,6 +16,9 @@ const Article = ({ post }) => {
           media={mounted ? 'all' : 'print'}
           href={`/css/${mounted ? (theme === 'system' ? 'light' : theme) : 'light'}.css`}
         />
+        <noscript>
+          <link media="all" rel="stylesheet" href="/css/light.css" />
+        </noscript>
       </Head>
       <article
         className="prose dark:prose-light max-w-none mt-10 text-sm"
