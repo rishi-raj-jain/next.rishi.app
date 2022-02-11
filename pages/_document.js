@@ -6,13 +6,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link
-            as="font"
-            rel="preload"
-            type="font/woff2"
-            crossOrigin="anonymous"
-            href="/fonts/inter-var.woff2"
-          />
           <meta charSet="utf-8" />
           <meta property="og:locale" content="en_US" />
           <meta property="og:type" content="website" />
@@ -32,6 +25,14 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <noscript>
+            <link
+              as="font"
+              type="font/woff2"
+              crossOrigin="anonymous"
+              href="/fonts/inter-var.woff2"
+            />
+          </noscript>
         </body>
       </Html>
     )

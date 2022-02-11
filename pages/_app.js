@@ -1,7 +1,7 @@
 import '@/styles/global.css'
-import { useEffect } from 'react'
 import { Metrics } from '@layer0/rum'
 import Navbar from '@/components/Navbar'
+import { useEffect, useState } from 'react'
 import { ThemeProvider } from 'next-themes'
 import { install, prefetch } from '@layer0/prefetch/window'
 
@@ -12,12 +12,12 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 const MyApp = ({ Component, pageProps }) => {
+  const [media, setMedia]= useState('print')
   useEffect(() => {
     const prefetchCSS = () => {
       if (document.location.pathname.endsWith('blogs')) {
         prefetch('/css/dark.css')
         prefetch('/css/light.css')
-        prefetch('/_next/image?url=https%3A%2F%2Fa.storyblok.com%2Ff%2F117912%2F30x30%2F11c98f9b8f%2Frishi.png&w=64&q=30')
       }
     }
     install({
@@ -45,6 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
         },
       ],
     })
+    setMedia('all')
   }, [])
 
   return (
@@ -55,6 +56,13 @@ const MyApp = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </div>
       </div>
+      <link
+        as="font"
+        media={media}
+        type="font/woff2"
+        crossOrigin="anonymous"
+        href="/fonts/inter-var.woff2"
+      />
     </ThemeProvider>
   )
 }
