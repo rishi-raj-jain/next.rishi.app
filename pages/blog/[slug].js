@@ -65,7 +65,7 @@ export default function Post({ post, morePosts, origin }) {
   )
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ req, params }) {
   let origin = req.headers['host']
   const resp = await fetch(`https://${origin}/api/blog/${params.slug}`)
   if (!resp.ok) return { notFound: true }
@@ -73,13 +73,5 @@ export async function getStaticProps({ params }) {
   data['post']['content']['long_text'] = await markdownToHtml(data.post.content.long_text)
   return {
     props: { ...data, origin },
-    revalidate: 60,
-  }
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
   }
 }
