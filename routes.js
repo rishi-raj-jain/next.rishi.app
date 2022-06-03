@@ -5,6 +5,16 @@ const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 // Create a new router
 const router = new Router()
 
+// Block crawlers on Layer0 permalinks
+router.get({
+  headers: {
+    host: /layer0.link|layer0-perma.link/,
+  }},
+  ({ setResponseHeader }) => {
+    setResponseHeader('x-robots-tag', 'noindex')
+  },
+)
+
 // Serve service worker
 router.get('/service-worker.js', ({ serviceWorker }) => {
   return serviceWorker('.next/static/service-worker.js')
