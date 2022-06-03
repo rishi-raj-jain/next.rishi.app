@@ -17,9 +17,10 @@ exports.assetCache = {
   },
 }
 
-exports.nextCache = {
+exports.nextCache = (swrSeconds= 0) => ({
   browser: false,
   edge: {
     maxAgeSeconds: 60,
-  },
-}
+    staleWhileRevalidateSeconds: swrSeconds
+  }
+})

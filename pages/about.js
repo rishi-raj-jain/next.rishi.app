@@ -35,13 +35,12 @@ const About = ({ Timeline, aboutTagline, origin }) => {
 
 export default About
 
-export async function getStaticProps({ req }) {
+export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
   const resp = await fetch(`https://${origin}/api/about`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {
     props: { ...data, origin },
-    revalidate: 60,
   }
 }

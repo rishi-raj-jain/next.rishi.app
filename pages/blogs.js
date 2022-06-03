@@ -90,13 +90,12 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
 
 export default Blogs
 
-export async function getStaticProps({ req }) {
+export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
   const resp = await fetch(`https://${origin}/api/blogs`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {
     props: { ...data, origin },
-    revalidate: 60,
   }
 }

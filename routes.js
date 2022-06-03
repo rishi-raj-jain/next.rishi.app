@@ -55,6 +55,15 @@ router.match('/_next/data/:build/:name.json', ({ cache, removeUpstreamResponseHe
   cache(nextCache)
 })
 
+// Cache the pages for a minute
+const pages= ['/', '/about', '/blogs']
+pages.forEach((i) => {
+  router.match(i, ({ cache, removeUpstreamResponseHeader }) => {
+    removeUpstreamResponseHeader('cache-control')
+    cache(nextCache(60))
+  })
+})
+
 // Default Next.js Routes
 router.use(nextRoutes)
 
