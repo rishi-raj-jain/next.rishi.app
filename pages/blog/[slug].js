@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
 import SEO from '@/components/Seo'
 import { useTheme } from 'next-themes'
+import { imageLink } from '@/lib/data'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import { useEffect, useState } from 'react'
 import markdownToHtml from '@/lib/markdown'
 import DateString from '@/components/DateString'
-import { deploymentUrl, imageLink } from '@/lib/data'
 import { getComments } from '@/components/blog/comments'
 
 const LoadComments = dynamic(
@@ -17,7 +17,7 @@ const LoadComments = dynamic(
 const WriteComment = dynamic(() => import('@/components/blog/comments'), { ssr: false })
 const MorePosts = dynamic(() => import('@/components/blog/more-posts'))
 
-export default function Post({ content, post, morePosts }) {
+export default function Post({ post, morePosts, origin }) {
   const { theme } = useTheme()
   const [comments, setComments] = useState([])
   const [mounted, setMounted] = useState(false)
@@ -25,7 +25,7 @@ export default function Post({ content, post, morePosts }) {
     description: post.content.intro,
     pubDate: post.first_published_at,
     author: post.content.author.name,
-    canonical: `${deploymentUrl}/blog/${post.slug}`,
+    canonical: `https://${origin}/blog/${post.slug}`,
     title: `${post.content.title} - ${post.content.author.name}`,
   }
   if (post.content.image)
@@ -66,12 +66,13 @@ export default function Post({ content, post, morePosts }) {
 }
 
 export async function getStaticProps({ params }) {
-  const blogFetch = await fetch(`${deploymentUrl}/api/blog/${params.slug}`)
-  if (!blogFetch.ok) return { notFound: true }
-  const blogData = await blogFetch.json()
-  blogData['post']['content']['long_text'] = await markdownToHtml(blogData.post.content.long_text)
+  let origin = req.headers['host']
+  const resp = await fetch(`https://${origin}/api/blog/${params.slug}`)
+  if (!resp.ok) return { notFound: true }
+  const data = await resp.json()
+  data['post']['content']['long_text'] = await markdownToHtml(data.post.content.long_text)
   return {
-    props: { ...blogData },
+    props: { ...data, origin },
     revalidate: 60,
   }
 }

@@ -1,15 +1,14 @@
 import Link from 'next/link'
 import SEO from '@/components/Seo'
 import { Prefetch } from '@layer0/react'
-import { deploymentUrl } from '@/lib/data'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
-const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
+const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
-    canonical: `${deploymentUrl}/blogs`,
+    canonical: `https://${origin}/blogs`,
   }
 
   return (
@@ -91,12 +90,13 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline }) => {
 
 export default Blogs
 
-export async function getStaticProps() {
-  const blogsFetch = await fetch(`${deploymentUrl}/api/blogs`)
-  if (!blogsFetch.ok) return { notFound: true }
-  const blogsData = await blogsFetch.json()
+export async function getStaticProps({ req }) {
+  let origin = req.headers['host']
+  const resp = await fetch(`https://${origin}/api/blogs`)
+  if (!resp.ok) return { notFound: true }
+  const data = await resp.json()
   return {
-    props: { ...blogsData },
+    props: { ...data, origin },
     revalidate: 60,
   }
 }

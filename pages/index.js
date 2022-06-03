@@ -1,15 +1,14 @@
 import { Fragment } from 'react'
 import NextImage from 'next/image'
 import SEO from '@/components/Seo'
-import { deploymentUrl } from '@/lib/data'
 import { shimmer, toBase64 } from '@/lib/shimmer'
 import SocialLinks from '@/components/social-links'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
-const Home = ({ homeTagline }) => {
+const Home = ({ homeTagline, origin }) => {
   return (
     <Fragment>
-      <SEO canonical={deploymentUrl} />
+      <SEO canonical={`https://${origin}`} />
       <div className="min-h-[90vh] flex flex-col justify-center md:justify-auto md:flex-row md:items-center">
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center">
           <div className="md:hidden filter">
@@ -19,7 +18,7 @@ const Home = ({ homeTagline }) => {
               quality={30}
               placeholder="blur"
               className="grayscale rounded-full"
-              src={`${deploymentUrl}/static/favicon-image.jpg`}
+              src={`https://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -46,7 +45,7 @@ const Home = ({ homeTagline }) => {
               quality={50}
               placeholder="blur"
               className="rounded object-cover"
-              src={`${deploymentUrl}/static/favicon-image.jpg`}
+              src={`https://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -58,12 +57,13 @@ const Home = ({ homeTagline }) => {
 
 export default Home
 
-export async function getStaticProps() {
-  const homeFetch = await fetch(`${deploymentUrl}/api/home`)
-  if (!homeFetch.ok) return { notFound: true }
-  const homeData = await homeFetch.json()
+export async function getStaticProps({ req }) {
+  let origin = req.headers['host']
+  const resp = await fetch(`https://${origin}/api/home`)
+  if (!resp.ok) return { notFound: true }
+  const data = await resp.json()
   return {
-    props: { ...homeData },
+    props: { ...data, origin },
     revalidate: 60,
   }
 }

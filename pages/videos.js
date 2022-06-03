@@ -1,13 +1,12 @@
 import { Fragment } from 'react'
 import SEO from '@/components/Seo'
 import ReactPlayer from 'react-player'
-import { deploymentUrl } from '@/lib/data'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
-const Videos = ({ videoTagline = '' }) => {
+const Videos = ({ videoTagline = '', origin }) => {
   const SEODetails = {
     title: `Videos - Rishi Raj Jain`,
-    canonical: `${deploymentUrl}/videos`,
+    canonical: `https://${origin}/videos`,
   }
   return (
     <Fragment>
@@ -36,3 +35,14 @@ const Videos = ({ videoTagline = '' }) => {
 }
 
 export default Videos
+
+export async function getStaticProps({ req }){
+  let origin= req.headers['host']
+  return {
+    props: {
+      origin
+    },
+    revalidate: 60
+  }
+
+}

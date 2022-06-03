@@ -6,7 +6,6 @@ export const getComments = (slug, callBackFunction) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res)
       if (res && res.posts) callBackFunction(res.posts)
     })
     .catch((e) => {
