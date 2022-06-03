@@ -36,13 +36,12 @@ const Videos = ({ videoTagline = '', origin }) => {
 
 export default Videos
 
-export async function getStaticProps({ req }){
+export async function getServerSideProps({ req }){
   let origin= req.headers['host']
   return {
     props: {
       origin
-    },
-    revalidate: 60
+    }
   }
 
 }
