@@ -8,7 +8,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Home = ({ homeTagline, origin }) => {
   return (
     <Fragment>
-      <SEO canonical={`http://${origin}`} />
+      <SEO canonical={`https://${origin}`} />
       <div className="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
         <div className="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
           <div className="filter md:hidden">
@@ -18,7 +18,7 @@ const Home = ({ homeTagline, origin }) => {
               quality={30}
               placeholder="blur"
               className="rounded-full grayscale"
-              src={`http://${origin}/static/favicon-image.jpg`}
+              src={`https://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -45,7 +45,7 @@ const Home = ({ homeTagline, origin }) => {
               quality={50}
               placeholder="blur"
               className="rounded object-cover"
-              src={`http://${origin}/static/favicon-image.jpg`}
+              src={`https://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -59,7 +59,7 @@ export default Home
 
 export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
-  const resp = await fetch(`http://${origin}/api/home`)
+  const resp = await fetch(`https://${origin}/api/home`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

@@ -1,34 +1,30 @@
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import SEO from '@/components/Seo'
-import { useTheme } from 'next-themes'
 import { imageLink } from '@/lib/data'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
-import { useEffect, useState } from 'react'
 import markdownToHtml from '@/lib/markdown'
 import DateString from '@/components/DateString'
 import { getComments } from '@/components/blog/comments'
 
+// Lazy Load Comments Components
 const LoadComments = dynamic(() => import('@/components/blog/comments').then((mod) => mod.LoadComments), { ssr: false })
-
 const WriteComment = dynamic(() => import('@/components/blog/comments'), { ssr: false })
-const MorePosts = dynamic(() => import('@/components/blog/more-posts'))
 
-export default function Post({ post, morePosts, origin }) {
-  const { theme } = useTheme()
+// Lazy Load More Posts Components
+const MorePosts = dynamic(() => import('@/components/blog/more-posts'), { ssr: false })
+
+const Post = ({ post, morePosts, origin }) => {
   const [comments, setComments] = useState([])
-  const [mounted, setMounted] = useState(false)
   const SEODetails = {
     description: post.content.intro,
     pubDate: post.first_published_at,
     author: post.content.author.name,
-    canonical: `http://${origin}/blog/${post.slug}`,
+    canonical: `https://${origin}/blog/${post.slug}`,
     title: `${post.content.title} - ${post.content.author.name}`,
   }
   if (post.content.image) SEODetails['image'] = `${imageLink}/api?title=${post.content.title}&image=${post.content.image}`
-  useEffect(() => {
-    setMounted(true)
-  }, [])
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails}>
@@ -59,9 +55,11 @@ export default function Post({ post, morePosts, origin }) {
   )
 }
 
+export default Post
+
 export async function getServerSideProps({ req, params }) {
   let origin = req.headers['host']
-  const resp = await fetch(`http://${origin}/api/blog/${params.slug}`)
+  const resp = await fetch(`https://${origin}/api/blog/${params.slug}`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   data['post']['content']['long_text'] = await markdownToHtml(data.post.content.long_text)

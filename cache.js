@@ -1,4 +1,4 @@
-exports.foreverEdge = {
+export const foreverEdge = {
   browser: false,
   edge: {
     staleWhileRevalidateSeconds: 1,
@@ -6,7 +6,7 @@ exports.foreverEdge = {
   },
 }
 
-exports.assetCache = {
+export const assetCache = {
   edge: {
     maxAgeSeconds: 60 * 60 * 60 * 365,
     forcePrivateCaching: true,
@@ -17,7 +17,7 @@ exports.assetCache = {
   },
 }
 
-exports.nextCache = (swrSeconds = 0) => ({
+export const nextCache = (swrSeconds = 0) => ({
   browser: false,
   edge: {
     maxAgeSeconds: 60,

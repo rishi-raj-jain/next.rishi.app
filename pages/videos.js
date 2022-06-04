@@ -6,7 +6,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Videos = ({ videoTagline = '', origin }) => {
   const SEODetails = {
     title: `Videos - Rishi Raj Jain`,
-    canonical: `http://${origin}/videos`,
+    canonical: `https://${origin}/videos`,
   }
   return (
     <Fragment>

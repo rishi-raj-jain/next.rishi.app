@@ -6,7 +6,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const About = ({ Timeline, aboutTagline, origin }) => {
   const SEODetails = {
     title: `About Me - Rishi Raj Jain`,
-    canonical: `http://${origin}/about`,
+    canonical: `https://${origin}/about`,
   }
   return (
     <Fragment>
@@ -37,7 +37,7 @@ export default About
 
 export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
-  const resp = await fetch(`http://${origin}/api/about`)
+  const resp = await fetch(`https://${origin}/api/about`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {
