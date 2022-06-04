@@ -1,6 +1,6 @@
 const { nextRoutes } = require('@layer0/next')
 const { Router } = require('@layer0/core/router')
-const { foreverEdge, assetCache, nextDataCache, nextCache } = require('./cache.js')
+const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 
 // Create a new router
 const router = new Router()
@@ -39,7 +39,7 @@ router.match('/css/:file', ({ cache, serveStatic }) => {
 // Disable cross origin fetch of /api route
 router.match('/api/:path*', ({ setResponseHeader, cache }) => {
   setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
-  cache(nextCache(0))
+  cache(nextCache)
 })
 
 // Caching the Next.js optimized images forever
@@ -51,11 +51,11 @@ router.match('/_next/image/:path*', ({ cache, removeUpstreamResponseHeader }) =>
 // Caching the Next.js data props
 router.match('/_next/data/:build/blog/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
   removeUpstreamResponseHeader('cache-control')
-  cache(nextDataCache)
+  cache(nextCache)
 })
 router.match('/_next/data/:build/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
   removeUpstreamResponseHeader('cache-control')
-  cache(nextDataCache)
+  cache(nextCache)
 })
 
 // Cache the pages for a minute
@@ -63,7 +63,7 @@ const pages = ['/', '/about', '/blogs', '/videos', '/blog/:path*']
 pages.forEach((i) => {
   router.match(i, ({ cache, removeUpstreamResponseHeader }) => {
     removeUpstreamResponseHeader('cache-control')
-    cache(nextCache(60))
+    cache(nextCache)
   })
 })
 

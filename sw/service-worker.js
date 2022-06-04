@@ -1,7 +1,6 @@
 import { Prefetcher } from '@layer0/prefetch/sw'
 import { precacheAndRoute } from 'workbox-precaching'
 import { skipWaiting, clientsClaim } from 'workbox-core'
-import DeepFetchPlugin from '@layer0/prefetch/sw/DeepFetchPlugin'
 
 skipWaiting()
 clientsClaim()

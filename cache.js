@@ -5,36 +5,29 @@ export const foreverEdge = {
   },
   edge: {
     maxAgeSeconds: 60 * 60 * 60 * 365,
+    staleWhileRevalidateSeconds: 0,
   },
 }
 
 export const assetCache = {
-  edge: {
-    maxAgeSeconds: 60 * 60 * 60 * 365,
-    forcePrivateCaching: true,
-  },
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: 60 * 60 * 24,
+    serviceWorkerSeconds: 60 * 60 * 60 * 365,
+  },
+  edge: {
+    maxAgeSeconds: 60 * 60 * 60 * 365,
+    staleWhileRevalidateSeconds: 0,
+    forcePrivateCaching: true,
   },
 }
 
-export const nextDataCache = {
+export const nextCache = {
   browser: {
     maxAgeSeconds: 0,
     serviceWorkerSeconds: 60,
   },
   edge: {
     maxAgeSeconds: 60,
+    staleWhileRevalidateSeconds: 0,
   },
 }
-
-export const nextCache = (swrSeconds = 0) => ({
-  browser: {
-    serviceWorkerSeconds: swrSeconds,
-  },
-  edge: {
-    maxAgeSeconds: 60,
-    staleWhileRevalidateSeconds: swrSeconds,
-  },
-})
