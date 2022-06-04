@@ -35,7 +35,7 @@ new Prefetcher({
   ],
 }).route()
 
-function deepFetchAssets({ $el, el, $ }: DeepFetchCallbackParam) {
+function deepFetchAssets({ $el, el, $ }) {
   let urlTemplate = $(el).attr('href')
   if (urlTemplate) {
     prefetch(urlTemplate)
