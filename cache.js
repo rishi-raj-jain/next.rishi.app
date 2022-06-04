@@ -1,10 +1,13 @@
+const ONE_DAY = 60 * 60 * 24
+const ONE_YEAR = ONE_DAY * 365
+
 export const foreverEdge = {
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: 60 * 60 * 60 * 365,
+    serviceWorkerSeconds: ONE_YEAR,
   },
   edge: {
-    maxAgeSeconds: 60 * 60 * 60 * 365,
+    maxAgeSeconds: ONE_YEAR,
     staleWhileRevalidateSeconds: 0,
   },
 }
@@ -12,10 +15,10 @@ export const foreverEdge = {
 export const assetCache = {
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: 60 * 60 * 60 * 365,
+    serviceWorkerSeconds: ONE_YEAR,
   },
   edge: {
-    maxAgeSeconds: 60 * 60 * 60 * 365,
+    maxAgeSeconds: ONE_YEAR,
     staleWhileRevalidateSeconds: 0,
     forcePrivateCaching: true,
   },
@@ -24,10 +27,10 @@ export const assetCache = {
 export const nextCache = {
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: 60,
+    serviceWorkerSeconds: ONE_DAY,
   },
   edge: {
-    maxAgeSeconds: 60,
+    maxAgeSeconds: ONE_DAY,
     staleWhileRevalidateSeconds: 0,
   },
 }
