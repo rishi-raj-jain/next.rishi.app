@@ -17,6 +17,16 @@ export const assetCache = {
   },
 }
 
+export const nextDataCache = {
+  browser: {
+    maxAgeSeconds: 0,
+    serviceWorkerSeconds: 60
+  },
+  edge: {
+    maxAgeSeconds: 60,
+  },
+}
+
 export const nextCache = (swrSeconds = 0) => ({
   browser: false,
   edge: {
