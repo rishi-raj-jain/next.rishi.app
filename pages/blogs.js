@@ -1,8 +1,10 @@
 import Link from 'next/link'
+import { useEffect } from 'react'
 import SEO from '@/components/Seo'
 import { Prefetch } from '@layer0/react'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
+import { prefetch } from '@layer0/prefetch/window'
 import { createNextDataURL } from '@layer0/next/client'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
@@ -11,6 +13,19 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
     title: `Blogs - Rishi Raj Jain`,
     canonical: `https://${origin}/blogs`,
   }
+
+  useEffect(() => {
+    allPosts.forEach((i) => {
+      if (i.slug && i.slug.length > 0)
+        fetch(createNextDataURL({ href: `/blog/${i.slug}`, routeParams: { slug: i.slug } }))
+          .then(() => {
+            prefetch(createNextDataURL({ href: `/blog/${i.slug}`, routeParams: { slug: i.slug } }))
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    })
+  }, [])
 
   return (
     <>

@@ -30,7 +30,9 @@ export const nextDataCache = {
 }
 
 export const nextCache = (swrSeconds = 0) => ({
-  browser: false,
+  browser: {
+    serviceWorkerSeconds: swrSeconds,
+  },
   edge: {
     maxAgeSeconds: 60,
     staleWhileRevalidateSeconds: swrSeconds,
