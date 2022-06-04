@@ -1,7 +1,9 @@
 export const foreverEdge = {
-  browser: false,
+  browser: {
+    maxAgeSeconds: 0,
+    serviceWorkerSeconds: 60 * 60 * 60 * 365,
+  },
   edge: {
-    staleWhileRevalidateSeconds: 1,
     maxAgeSeconds: 60 * 60 * 60 * 365,
   },
 }
@@ -20,7 +22,7 @@ export const assetCache = {
 export const nextDataCache = {
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: 60
+    serviceWorkerSeconds: 60,
   },
   edge: {
     maxAgeSeconds: 60,
