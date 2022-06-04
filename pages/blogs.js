@@ -8,59 +8,39 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
-    canonical: `https://${origin}/blogs`,
+    canonical: `http://${origin}/blogs`,
   }
 
   return (
     <>
       <SEO {...SEODetails} />
       <div className="flex flex-col">
-        <h1 className="font-bold text-2xl sm:text-5xl">Blogs</h1>
+        <h1 className="text-2xl font-bold sm:text-5xl">Blogs</h1>
         <h2
-          className="mt-5 dark:text-gray-400 font-regular text-md sm:text-xl whitespace-pre-line"
+          className="font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl"
           dangerouslySetInnerHTML={{
             __html: new RichTextResolver().render(blogsTagline),
           }}
         />
         <SearchBar content={allPosts} />
         <div className="flex flex-row flex-wrap">
-          <div className="mt-10 lg:mt-20 w-full lg:w-2/3 lg:pr-10 flex flex-col">
+          <div className="mt-10 flex w-full flex-col lg:mt-20 lg:w-2/3 lg:pr-10">
             {allPosts.map((item) => (
-              <div
-                key={`/blog/${item.slug}`}
-                className="border-b dark:border-gray-700 pb-10 mb-10 flex flex-col"
-              >
-                <span className="dark:text-gray-400 text-gray-700">
+              <div key={`/blog/${item.slug}`} className="mb-10 flex flex-col border-b pb-10 dark:border-gray-700">
+                <span className="text-gray-700 dark:text-gray-400">
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch
-                    url={
-                      process.browser
-                        ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json`
-                        : `/blog/${item.slug}`
-                    }
-                  >
+                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
                     <a className="mt-3 hover:underline" href={`/blog/${item.slug}`}>
-                      <span className="font-bold text-lg sm:text-2xl">{item.content.title}</span>
+                      <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
                     </a>
                   </Prefetch>
                 </Link>
-                <span className="mt-3 dark:text-gray-400 text-gray-700 line-clamp-2 text-sm">
-                  {item.content.intro}
-                </span>
+                <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch
-                    url={
-                      process.browser
-                        ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json`
-                        : `/blog/${item.slug}`
-                    }
-                  >
-                    <a
-                      href={`/blog/${item.slug}`}
-                      className="hover:underline text-blue-500 mt-5 uppercase text-sm"
-                    >
+                  <Prefetch url={process.browser ? `/_next/data/${__NEXT_DATA__.buildId}/blog/${item.slug}.json` : `/blog/${item.slug}`}>
+                    <a href={`/blog/${item.slug}`} className="mt-5 text-sm uppercase text-blue-500 hover:underline">
                       Read More &rarr;
                     </a>
                   </Prefetch>
@@ -68,15 +48,15 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
               </div>
             ))}
           </div>
-          <div className="mt-0 lg:mt-20 w-full lg:w-1/3 flex flex-col">
-            <h4 className="font-bold text-md sm:text-lg">Recommended Posts</h4>
+          <div className="mt-0 flex w-full flex-col lg:mt-20 lg:w-1/3">
+            <h4 className="text-md font-bold sm:text-lg">Recommended Posts</h4>
             {recommendedPosts.map((item) => (
               <a
                 rel="noopener"
                 target="_blank"
                 key={item.content.Title}
                 href={item.content.Url.url}
-                className="mt-5 pb-2 border-b dark:border-gray-700 hover:underline truncate dark:text-gray-400 text-gray-500 text-sm"
+                className="mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400"
               >
                 {item.content.Title}
               </a>
@@ -92,7 +72,7 @@ export default Blogs
 
 export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/blogs`)
+  const resp = await fetch(`http://${origin}/api/blogs`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

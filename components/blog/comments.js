@@ -40,14 +40,11 @@ export const LoadComments = ({ comments }) => {
     comments
       .sort((a, b) => (new Number(a.time) > new Number(b.time) ? -1 : 1))
       .map((item, index) => (
-        <div
-          key={index}
-          className="border dark:border-gray-500 rounded p-5 w-full mt-5 flex flex-col"
-        >
-          <span className="text-lg text-gray-500 dark:text-gray-300 font-medium">
+        <div key={index} className="mt-5 flex w-full flex-col rounded border p-5 dark:border-gray-500">
+          <span className="text-lg font-medium text-gray-500 dark:text-gray-300">
             {item.name} &middot; {new Date(1000 * item.time).toLocaleDateString()}
           </span>
-          <span className="mt-3 text-md text-gray-500 dark:text-gray-300">{item.content}</span>
+          <span className="text-md mt-3 text-gray-500 dark:text-gray-300">{item.content}</span>
         </div>
       ))
   )
@@ -67,23 +64,23 @@ const WriteComment = ({ slug, setComments }) => {
         setEmail('')
         setContent('')
       }}
-      className="mt-10 flex flex-col w-full"
+      className="mt-10 flex w-full flex-col"
     >
-      <h1 className="font-semibold text-lg">Write a comment</h1>
-      <div className="flex flex-col sm:flex-row sm:space-x-5 items-start">
+      <h1 className="text-lg font-semibold">Write a comment</h1>
+      <div className="flex flex-col items-start sm:flex-row sm:space-x-5">
         <input
           required
           value={name}
           placeholder="Name*"
           onChange={(e) => setName(e.target.value)}
-          className="mt-5 w-full sm:w-1/2 appearance-none outline-none ring-0 px-5 py-2 border dark:hover:border-white hover:border-black rounded hover:shadow text-black dark:bg-black dark:text-gray-300 dark:border-gray-500"
+          className="mt-5 w-full appearance-none rounded border px-5 py-2 text-black outline-none ring-0 hover:border-black hover:shadow dark:border-gray-500 dark:bg-black dark:text-gray-300 dark:hover:border-white sm:w-1/2"
         />
-        <div className="mt-5 w-full sm:w-1/2 flex flex-col space-y-1">
+        <div className="mt-5 flex w-full flex-col space-y-1 sm:w-1/2">
           <input
             value={email}
             placeholder="Email (Optional)"
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full appearance-none outline-none ring-0 px-5 py-2 border dark:hover:border-white hover:border-black rounded hover:shadow text-black dark:bg-black dark:text-gray-300 dark:border-gray-500"
+            className="w-full appearance-none rounded border px-5 py-2 text-black outline-none ring-0 hover:border-black hover:shadow dark:border-gray-500 dark:bg-black dark:text-gray-300 dark:hover:border-white"
           />
           <span className="text-sm text-gray-400">Email will remain confidential.</span>
         </div>
@@ -93,11 +90,11 @@ const WriteComment = ({ slug, setComments }) => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder={'Comment*\nMaximum of 500 characters.'}
-        className="mt-5 appearance-none outline-none ring-0 pt-5 px-5 pb-10 border dark:hover:border-white hover:border-black rounded hover:shadow text-black dark:bg-black dark:text-gray-300 dark:border-gray-500"
+        className="mt-5 appearance-none rounded border px-5 pt-5 pb-10 text-black outline-none ring-0 hover:border-black hover:shadow dark:border-gray-500 dark:bg-black dark:text-gray-300 dark:hover:border-white"
       />
       <button
         type="submit"
-        className="w-[200px] appearance-none mt-5 py-2 px-5 text-center rounded border hover:bg-gray-100 dark:hover:bg-[#28282B] dark:border-gray-500"
+        className="mt-5 w-[200px] appearance-none rounded border py-2 px-5 text-center hover:bg-gray-100 dark:border-gray-500 dark:hover:bg-[#28282B]"
       >
         Post a comment
       </button>

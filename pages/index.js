@@ -8,44 +8,44 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Home = ({ homeTagline, origin }) => {
   return (
     <Fragment>
-      <SEO canonical={`https://${origin}`} />
-      <div className="min-h-[90vh] flex flex-col justify-center md:justify-auto md:flex-row md:items-center">
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center">
-          <div className="md:hidden filter">
+      <SEO canonical={`http://${origin}`} />
+      <div className="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
+        <div className="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
+          <div className="filter md:hidden">
             <NextImage
               width={120}
               height={120}
               quality={30}
               placeholder="blur"
-              className="grayscale rounded-full"
-              src={`https://${origin}/static/favicon-image.jpg`}
+              className="rounded-full grayscale"
+              src={`http://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
-          <h1 className="mt-5 md:mt-0 font-bold text-2xl sm:text-5xl">Rishi Raj Jain</h1>
-          <h2 className="text-center md:text-left mt-5 text-lg sm:text-xl text-gray-500 dark:text-white">
+          <h1 className="mt-5 text-2xl font-bold sm:text-5xl md:mt-0">Rishi Raj Jain</h1>
+          <h2 className="mt-5 text-center text-lg text-gray-500 dark:text-white sm:text-xl md:text-left">
             Solutions Engineer at Layer0 by Limelight
           </h2>
           <div className="flex flex-row space-x-5">
             <SocialLinks />
           </div>
-          <div className="mt-10 bg-gray-200 dark:bg-gray-700 h-[1px] w-full"></div>
+          <div className="mt-10 h-[1px] w-full bg-gray-200 dark:bg-gray-700"></div>
           <h2
             dangerouslySetInnerHTML={{
               __html: new RichTextResolver().render(homeTagline),
             }}
-            className="text-center md:text-left mt-10 text-md sm:text-lg text-gray-500 dark:text-white"
+            className="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left"
           ></h2>
         </div>
-        <div className="hidden md:w-1/2 md:flex flex-col items-end justify-center">
-          <div className="filter grayscale">
+        <div className="hidden flex-col items-end justify-center md:flex md:w-1/2">
+          <div className="grayscale filter">
             <NextImage
               width={330}
               height={440}
               quality={50}
               placeholder="blur"
               className="rounded object-cover"
-              src={`https://${origin}/static/favicon-image.jpg`}
+              src={`http://${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -59,7 +59,7 @@ export default Home
 
 export async function getServerSideProps({ req }) {
   let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/home`)
+  const resp = await fetch(`http://${origin}/api/home`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

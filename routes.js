@@ -6,13 +6,15 @@ const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 const router = new Router()
 
 // Block crawlers on Layer0 permalinks
-router.get({
-  headers: {
-    host: /layer0.link|layer0-perma.link/,
-  }},
+router.get(
+  {
+    headers: {
+      host: /layer0.link|layer0-perma.link/,
+    },
+  },
   ({ setResponseHeader }) => {
     setResponseHeader('x-robots-tag', 'noindex')
-  },
+  }
 )
 
 // Serve service worker
@@ -48,15 +50,15 @@ router.match('/_next/image/:path*', ({ cache, removeUpstreamResponseHeader }) =>
 // Caching the Next.js data props
 router.match('/_next/data/:build/blog/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
   removeUpstreamResponseHeader('cache-control')
-  cache(nextCache)
+  cache(nextCache(0))
 })
 router.match('/_next/data/:build/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
   removeUpstreamResponseHeader('cache-control')
-  cache(nextCache)
+  cache(nextCache(0))
 })
 
 // Cache the pages for a minute
-const pages= ['/', '/about', '/blogs', '/videos', '/blog/:path*']
+const pages = ['/', '/about', '/blogs', '/videos', '/blog/:path*']
 pages.forEach((i) => {
   router.match(i, ({ cache, removeUpstreamResponseHeader }) => {
     removeUpstreamResponseHeader('cache-control')

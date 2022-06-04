@@ -9,6 +9,7 @@ const imageOptions = {
 // Add localhost port in dev mode only
 if (process.env.NODE_ENV !== 'production') {
   imageOptions['domains'].push('localhost')
+  imageOptions['domains'].push('127.0.0.1')
 }
 
 // Replace React with Preact only in client production build
@@ -25,10 +26,14 @@ const webPackOptions = (config, { dev, isServer }) => {
 
 // Wrapper for before Layer0 Service Worker
 const __preLayer0Export = {
-  reactStrictMode: true,
-  layer0SourceMaps: true,
+  target: 'server',
   images: imageOptions,
   webpack: webPackOptions,
+  env: {
+    STORYBLOK_API_KEY: process.env.STORYBLOK_API_KEY,
+  },
+  layer0SourceMaps: true,
+  disableLayer0DevTools: true,
 }
 
 module.exports = withLayer0(withServiceWorker(__preLayer0Export))

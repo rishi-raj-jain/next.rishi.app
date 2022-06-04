@@ -10,10 +10,7 @@ export default class MyDocument extends Document {
           <meta property="og:locale" content="en_US" />
           <meta property="og:type" content="website" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            name="google-site-verification"
-            content="hgb7sEPSlo0We6rT4UtpV04_qCFTryuwkcSEdtmAxr8"
-          />
+          <meta name="google-site-verification" content="hgb7sEPSlo0We6rT4UtpV04_qCFTryuwkcSEdtmAxr8" />
           <meta name="twitter:card" content="summary_large_image" />
           <script
             type="application/ld+json"
@@ -26,12 +23,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <noscript>
-            <link
-              as="font"
-              type="font/woff2"
-              crossOrigin="anonymous"
-              href="/fonts/inter-var.woff2"
-            />
+            <link as="font" type="font/woff2" crossOrigin="anonymous" href="/fonts/inter-var.woff2" />
           </noscript>
         </body>
       </Html>

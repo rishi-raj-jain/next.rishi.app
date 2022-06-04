@@ -17,10 +17,10 @@ exports.assetCache = {
   },
 }
 
-exports.nextCache = (swrSeconds= 0) => ({
+exports.nextCache = (swrSeconds = 0) => ({
   browser: false,
   edge: {
     maxAgeSeconds: 60,
-    staleWhileRevalidateSeconds: swrSeconds
-  }
+    staleWhileRevalidateSeconds: swrSeconds,
+  },
 })
