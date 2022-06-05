@@ -1,3 +1,4 @@
+const ONE_HOUR= 60 * 60
 const ONE_DAY = 60 * 60 * 24
 const ONE_YEAR = ONE_DAY * 365
 
@@ -27,10 +28,10 @@ export const assetCache = {
 export const nextCache = {
   browser: {
     maxAgeSeconds: 0,
-    serviceWorkerSeconds: ONE_DAY,
+    serviceWorkerSeconds: ONE_HOUR,
   },
   edge: {
-    maxAgeSeconds: ONE_DAY,
+    maxAgeSeconds: ONE_HOUR,
     staleWhileRevalidateSeconds: 0,
   },
 }
