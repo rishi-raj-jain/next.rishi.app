@@ -7,6 +7,7 @@ const About = ({ Timeline, aboutTagline, origin }) => {
   const SEODetails = {
     title: `About Me - Rishi Raj Jain`,
     canonical: `https://${origin}/about`,
+    deploymentUrl: `https://${origin}`
   }
   return (
     <Fragment>

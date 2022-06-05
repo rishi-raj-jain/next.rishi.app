@@ -7,6 +7,7 @@ const Videos = ({ videoTagline = '', origin }) => {
   const SEODetails = {
     title: `Videos - Rishi Raj Jain`,
     canonical: `https://${origin}/videos`,
+    deploymentUrl: `https://${origin}`
   }
   return (
     <Fragment>

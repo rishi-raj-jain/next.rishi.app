@@ -10,6 +10,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
     canonical: `https://${origin}/blogs`,
+    deploymentUrl: `https://${origin}`
   }
 
   return (

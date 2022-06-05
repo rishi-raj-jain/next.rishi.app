@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import SEO from '@/components/Seo'
-import { imageLink } from '@/lib/data'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import markdownToHtml from '@/lib/markdown'
@@ -23,8 +22,9 @@ const Post = ({ post, morePosts, origin }) => {
     author: post.content.author.name,
     canonical: `https://${origin}/blog/${post.slug}`,
     title: `${post.content.title} - ${post.content.author.name}`,
+    deploymentUrl: `https://${origin}`
   }
-  if (post.content.image) SEODetails['image'] = `${imageLink}/api?title=${post.content.title}&image=${post.content.image}`
+  if (post.content.image) SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(post.content.title)}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails}>
@@ -62,7 +62,8 @@ export async function getServerSideProps({ req, params }) {
   const resp = await fetch(`https://${origin}/api/blog/${params.slug}`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
-  data['post']['content']['long_text'] = await markdownToHtml(data.post.content.long_text)
+  data['post']['content']['long_text']= data['post']['content']['long_text'].replace(/layer0\.link/g, 'layer0-limelight.link')
+  data['post']['content']['long_text'] = await markdownToHtml(data['post']['content']['long_text'])
   return {
     props: { ...data, origin },
   }

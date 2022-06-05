@@ -8,7 +8,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Home = ({ homeTagline, origin }) => {
   return (
     <Fragment>
-      <SEO canonical={`https://${origin}`} />
+      <SEO deploymentUrl={`https://${origin}`} canonical={`https://${origin}`} />
       <div className="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
         <div className="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
           <div className="filter md:hidden">

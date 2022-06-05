@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { Fragment } from 'react'
-import { defaultDescription, defaultTitle, deploymentUrl, profileLinks } from '@/lib/data'
+import { defaultDescription, defaultTitle, profileLinks } from '@/lib/data'
 
 const SEO = ({
+  deploymentUrl,
   title,
   description,
   image = `${deploymentUrl}/static/social-media-card.jpg`,
