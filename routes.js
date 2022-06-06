@@ -37,9 +37,8 @@ router.match('/css/:file', ({ cache, serveStatic }) => {
 })
 
 // Disable cross origin fetch of /api route
-router.match('/api/:path*', ({ setResponseHeader, cache }) => {
+router.match('/api/:path*', ({ setResponseHeader }) => {
   setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
-  cache(nextCache)
 })
 
 // Caching the Next.js optimized images forever
