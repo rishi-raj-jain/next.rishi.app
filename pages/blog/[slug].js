@@ -27,10 +27,7 @@ const Post = ({ post, morePosts, origin }) => {
   if (post.content.image) SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(post.content.title)}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
   return (
     <div className="flex w-full flex-col items-center">
-      <SEO {...SEODetails}>
-        <link as="script" rel="preload" href="/css/light.css" />
-        <link as="script" rel="preload" href="/css/dark.css" />
-      </SEO>
+      <SEO {...SEODetails} />
       <div className="w-full md:max-w-2xl">
         <div className="flex w-full flex-col items-center">
           <DateString date={new Date(SEODetails.pubDate)} />
