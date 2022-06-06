@@ -6,7 +6,9 @@ pre[class*='language-'] {
   word-break: normal;
   word-wrap: normal;
   color: #eee;
-  background: #2f2f2f;
+  background: #000000;
+  border-width: thin;
+  border-color: #FFFFFF30;
   font-family: 'Inter';
   font-display: optional;
   font-size: 1em;
