@@ -23,7 +23,7 @@ const CV = ({ data }) => {
           <h2 id={i} className="animate-fade text-zinc-700 dark:text-gray-300">
             {i}
           </h2>
-          {Items[i].map((j, _ind) => (
+          {data[i].map((j, _ind) => (
             <div key={_ind} className="flex flex-col gap-y-2 gap-x-10 md:flex-row md:gap-y-0">
               <p className="min-w-[100px] animate-fade-2 font-light text-gray-400">{j.name}</p>
               <a
