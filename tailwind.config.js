@@ -13,6 +13,17 @@ module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      animation: {
+        fade: 'fadeIn 1s ease-in-out',
+        'fade-2': 'fadeIn 2s ease-in-out',
+        'fade-3': 'fadeIn 3s ease-in-out',
+      },
+      keyframes: (theme) => ({
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      }),
       fontFamily: {
         display: ['Inter', ...fontFamily.sans],
       },
