@@ -7,7 +7,7 @@ const CV = ({ data }) => {
     deploymentUrl: `https://rishi.app`
   }
   return (
-    <Fragment>
+    <>
       <SEO {...SEODetails} />
       <div className="flex w-full flex-col items-center text-[14px]">
         <div className="mt-10 flex w-[90vw] max-w-[540px] flex-col">
@@ -47,7 +47,7 @@ const CV = ({ data }) => {
           </div>
         ))}
       </div>
-    </Fragment>
+    </>
   )
 }
 
