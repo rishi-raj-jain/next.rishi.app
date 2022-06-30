@@ -16,7 +16,7 @@ const CV = ({ data }) => {
             About
           </h2>
           <p className="mt-2 font-light text-slate-600 dark:text-slate-400">
-            Customer Success Manager at{' '}
+            Solutions Architect - Technical Customer Success at{' '}
             <a target="_blank" className="text-black underline dark:text-slate-200" href="https://edg.io">
               Edgio
             </a>
