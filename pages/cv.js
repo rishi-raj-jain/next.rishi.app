@@ -58,7 +58,7 @@ export async function getStaticProps() {
     props: {
       data: {
         'Work Experience': [
-          { name: '2022 — Now', title: 'Customer Success Manager at Edgio', href: 'https://edg.io' },
+          { name: '2022 — Now', title: 'Solutions Architect - Technical Customer Success at Edgio', href: 'https://edg.io' },
           { name: '2021 — Now', title: 'Ambassador at Storyblok', href: 'https://storyblok.com' },
           { name: '2021 — 2022', title: 'Solutions / DevRel at Layer0 by Limelight Networks', href: 'https://limelight.com' },
           { name: '2019 — 2021', title: 'Developer Evangelist, Freelance at Layer0', href: 'https://layer0.co' },
