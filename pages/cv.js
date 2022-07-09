@@ -92,7 +92,7 @@ export async function getStaticProps() {
           {
             name: 'GitHub',
             title: 'rishi-raj-jain',
-            href: 'https://github.com/in/rishi-raj-jain',
+            href: 'https://github.com/rishi-raj-jain',
           },
           {
             name: 'Email',
