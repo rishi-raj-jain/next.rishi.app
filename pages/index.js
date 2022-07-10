@@ -24,7 +24,7 @@ const Home = ({ homeTagline, origin }) => {
           </div>
           <h1 className="mt-5 text-2xl font-bold sm:text-5xl md:mt-0">Rishi Raj Jain</h1>
           <h2 className="mt-5 text-center text-lg text-gray-500 dark:text-white sm:text-xl md:text-left">
-            Solutions Engineer at Layer0 by Limelight
+            Solutions Architect - Technical Customer Success at Edgio
           </h2>
           <div className="flex flex-row space-x-5">
             <SocialLinks />
