@@ -58,7 +58,7 @@ router.match('/_next/data/:build/:name.json', ({ cache, removeUpstreamResponseHe
 })
 
 // Cache the pages for a minute
-const pages = ['/', '/about', '/blogs', '/videos', '/blog/:path*']
+const pages = ['/', '/about', '/blogs', '/videos', '/cv', '/storyblok', '/blog/:path*']
 pages.forEach((i) => {
   router.match(i, ({ cache, removeUpstreamResponseHeader }) => {
     removeUpstreamResponseHeader('cache-control')
