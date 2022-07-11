@@ -84,6 +84,11 @@ export async function getStaticProps() {
         ],
         Repositories: [
           {
+            name: 'Jul. 2022',
+            title: 'Storyblok Upload Data',
+            href: 'https://github.com/rishi-raj-jain/upload-storyblok',
+          },
+          {
             name: 'Feb. 2022',
             title: 'Dynamic portfolio with Layer0, Storyblok and Next.js',
             href: 'https://github.com/rishi-raj-jain/layer0-storyblok-nextjs-portfolio-starter',
