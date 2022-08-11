@@ -1,17 +1,45 @@
 import Link from 'next/link'
+import { useEffect } from 'react'
 import SEO from '@/components/Seo'
-import { Prefetch } from '@layer0/react'
+import { getOrigin } from '@/lib/operations'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
+import { prefetch } from '@layer0/prefetch/window'
 import { createNextDataURL } from '@layer0/next/client'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
+
+function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
 
 const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
-    canonical: `https://${origin}/blogs`,
-    deploymentUrl: `https://${origin}`
+    canonical: `${origin}/blogs`,
+    deploymentUrl: origin,
   }
+
+  useEffect(() => {
+    const onScroll = () => {
+      allPosts.forEach((item) => {
+        let selector = `[href*="/blog/${item.slug}"]`
+        if (!document.querySelector(selector)) return
+        if (isElementInViewport(document.querySelector(selector))) {
+          prefetch(createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } }))
+        }
+      })
+    }
+    onScroll()
+    window.removeEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <>
@@ -33,19 +61,23 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
-                    <a className="mt-3 hover:underline" href={`/blog/${item.slug}`}>
-                      <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
-                    </a>
-                  </Prefetch>
+                  <a
+                    href={`/blog/${item.slug}`}
+                    className="mt-3 hover:underline"
+                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                  >
+                    <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
+                  </a>
                 </Link>
                 <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>
                 <Link href={`/blog/${item.slug}`}>
-                  <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
-                    <a href={`/blog/${item.slug}`} className="mt-5 text-sm uppercase text-blue-500 hover:underline">
-                      Read More &rarr;
-                    </a>
-                  </Prefetch>
+                  <a
+                    href={`/blog/${item.slug}`}
+                    className="mt-5 text-sm uppercase text-blue-500 hover:underline"
+                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                  >
+                    Read More &rarr;
+                  </a>
                 </Link>
               </div>
             ))}
@@ -73,8 +105,8 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
 export default Blogs
 
 export async function getServerSideProps({ req }) {
-  let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/blogs`)
+  let origin = getOrigin(req)
+  const resp = await fetch(`${origin}/api/blogs`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

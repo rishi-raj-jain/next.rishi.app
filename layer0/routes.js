@@ -1,4 +1,3 @@
-const { nextRoutes } = require('@layer0/next')
 const { Router } = require('@layer0/core/router')
 const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 
@@ -6,20 +5,16 @@ const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 const router = new Router()
 
 // Block crawlers on Layer0 permalinks
-router.get(
-  {
-    headers: {
-      host: /layer0.link|layer0-perma.link/,
-    },
-  },
-  ({ setResponseHeader }) => {
-    setResponseHeader('x-robots-tag', 'noindex')
-  }
-)
+router.noIndexPermalink()
 
-// Serve service worker
-router.get('/service-worker.js', ({ serviceWorker }) => {
-  return serviceWorker('.next/static/service-worker.js')
+// Serve the compiled service worker with Layer0 prefetcher working
+router.match('/service-worker.js', ({ serviceWorker }) => {
+  serviceWorker('dist/service-worker.js')
+})
+
+// Re-Route xdn requests to layer0
+router.match('/__xdn__/:path*', ({ redirect }) => {
+  redirect('/__layer0__/:path*', 301)
 })
 
 // Cache assets
@@ -67,6 +62,8 @@ pages.forEach((i) => {
 })
 
 // Default Next.js Routes
-router.use(nextRoutes)
+router.fallback(({ renderWithApp }) => {
+  renderWithApp()
+})
 
 module.exports = router

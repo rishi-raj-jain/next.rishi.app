@@ -1,16 +1,17 @@
 import { Fragment } from 'react'
 import SEO from '@/components/Seo'
+import { getOrigin } from '@/lib/operations'
 import TimelineItem from '@/components/TimelineItem'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 const About = ({ Timeline, aboutTagline, origin }) => {
   const SEODetails = {
     title: `About Me - Rishi Raj Jain`,
-    canonical: `https://${origin}/about`,
-    deploymentUrl: `https://${origin}`
+    canonical: `${origin}/about`,
+    deploymentUrl: `${origin}`,
   }
   return (
-    <Fragment>
+    <>
       <SEO {...SEODetails} />
       <h1 className="text-2xl font-bold sm:text-5xl">About Me</h1>
       <h2
@@ -30,15 +31,15 @@ const About = ({ Timeline, aboutTagline, origin }) => {
             ))}
           </Fragment>
         ))}
-    </Fragment>
+    </>
   )
 }
 
 export default About
 
 export async function getServerSideProps({ req }) {
-  let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/about`)
+  let origin = getOrigin(req)
+  const resp = await fetch(`${origin}/api/about`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

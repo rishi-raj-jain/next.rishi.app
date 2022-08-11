@@ -1,10 +1,10 @@
 import SEO from '@/components/Seo'
 
 const CV = ({ data }) => {
-   const SEODetails = {
+  const SEODetails = {
     title: `CV - Rishi Raj Jain`,
     canonical: `https://rishi.app/cv`,
-    deploymentUrl: `https://rishi.app`
+    deploymentUrl: `https://rishi.app`,
   }
   return (
     <>

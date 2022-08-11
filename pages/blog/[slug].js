@@ -4,6 +4,7 @@ import SEO from '@/components/Seo'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import markdownToHtml from '@/lib/markdown'
+import { getOrigin } from '@/lib/operations'
 import DateString from '@/components/DateString'
 import { getComments } from '@/components/blog/comments'
 
@@ -20,11 +21,14 @@ const Post = ({ post, morePosts, origin }) => {
     description: post.content.intro,
     pubDate: post.first_published_at,
     author: post.content.author.name,
-    canonical: `https://${origin}/blog/${post.slug}`,
+    canonical: `${origin}/blog/${post.slug}`,
     title: `${post.content.title} - ${post.content.author.name}`,
-    deploymentUrl: `https://${origin}`
+    deploymentUrl: origin,
   }
-  if (post.content.image) SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(post.content.title)}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
+  if (post.content.image)
+    SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
+      post.content.title
+    )}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails} />
@@ -55,11 +59,11 @@ const Post = ({ post, morePosts, origin }) => {
 export default Post
 
 export async function getServerSideProps({ req, params }) {
-  let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/blog/${params.slug}`)
+  let origin = getOrigin(req)
+  const resp = await fetch(`${origin}/api/blog/${params.slug}`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
-  data['post']['content']['long_text']= data['post']['content']['long_text'].replace(/layer0\.link/g, 'layer0-limelight.link')
+  data['post']['content']['long_text'] = data['post']['content']['long_text'].replace(/layer0\.link/g, 'layer0-limelight.link')
   data['post']['content']['long_text'] = await markdownToHtml(data['post']['content']['long_text'])
   return {
     props: { ...data, origin },

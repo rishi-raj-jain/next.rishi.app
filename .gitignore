@@ -27,3 +27,7 @@ yarn-error.log*
 
 # nextjs files
 .next
+
+.swc
+
+dist

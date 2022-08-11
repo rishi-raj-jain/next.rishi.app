@@ -22,9 +22,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <noscript>
-            <link as="font" type="font/woff2" crossOrigin="anonymous" href="/fonts/inter-var.woff2" />
-          </noscript>
+          <link as="font" type="font/woff2" crossOrigin="anonymous" href="/fonts/inter-var.woff2" />
         </body>
       </Html>
     )

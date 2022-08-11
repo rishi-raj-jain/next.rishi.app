@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import NextImage from 'next/image'
 import SEO from '@/components/Seo'
+import { getOrigin } from '@/lib/operations'
 import { shimmer, toBase64 } from '@/lib/shimmer'
 import SocialLinks from '@/components/social-links'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
@@ -8,7 +9,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 const Home = ({ homeTagline, origin }) => {
   return (
     <Fragment>
-      <SEO deploymentUrl={`https://${origin}`} canonical={`https://${origin}`} />
+      <SEO deploymentUrl={origin} canonical={origin} />
       <div className="md:justify-auto flex min-h-[90vh] flex-col justify-center md:flex-row md:items-center">
         <div className="flex w-full flex-col items-center justify-center md:w-1/2 md:items-start">
           <div className="filter md:hidden">
@@ -18,7 +19,7 @@ const Home = ({ homeTagline, origin }) => {
               quality={30}
               placeholder="blur"
               className="rounded-full grayscale"
-              src={`https://${origin}/static/favicon-image.jpg`}
+              src={`${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -45,7 +46,7 @@ const Home = ({ homeTagline, origin }) => {
               quality={50}
               placeholder="blur"
               className="rounded object-cover"
-              src={`https://${origin}/static/favicon-image.jpg`}
+              src={`${origin}/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
@@ -58,8 +59,8 @@ const Home = ({ homeTagline, origin }) => {
 export default Home
 
 export async function getServerSideProps({ req }) {
-  let origin = req.headers['host']
-  const resp = await fetch(`https://${origin}/api/home`)
+  let origin = getOrigin(req)
+  const resp = await fetch(`${origin}/api/home`)
   if (!resp.ok) return { notFound: true }
   const data = await resp.json()
   return {

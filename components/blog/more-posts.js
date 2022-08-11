@@ -1,9 +1,16 @@
 import Link from 'next/link'
-import Prefetch from '@layer0/react/Prefetch'
+import { useEffect } from 'react'
+import { prefetch } from '@layer0/prefetch/window'
 import { createNextDataURL } from '@layer0/next/client'
 
 const MorePosts = ({ morePosts }) => {
   const filteredPosts = morePosts.filter((item) => item.hasOwnProperty('name'))
+
+  useEffect(() => {
+    filteredPosts.forEach((item) => {
+      prefetch(createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } }))
+    })
+  }, [])
 
   return (
     filteredPosts.length > 0 && (
@@ -13,11 +20,9 @@ const MorePosts = ({ morePosts }) => {
         </div>
         {filteredPosts.map((item) => (
           <Link href={`/blog/${item.slug}`} key={item.slug}>
-            <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
-              <a href={`/blog/${item.slug}`} className="mb-5 block w-full text-lg font-bold hover:underline">
-                {item.name}
-              </a>
-            </Prefetch>
+            <a href={`/blog/${item.slug}`} className="mb-5 block w-full text-lg font-bold hover:underline">
+              {item.name}
+            </a>
           </Link>
         ))}
       </div>
