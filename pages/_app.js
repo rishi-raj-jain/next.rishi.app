@@ -1,3 +1,5 @@
+import '@/styles/global.css'
+import { useEffect } from 'react'
 import Layer0RUM from 'layer0/rum'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
