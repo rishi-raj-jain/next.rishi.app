@@ -18,17 +18,12 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 })
 
 // Cache assets
-router.get('/static/:file', ({ cache, serveStatic }) => {
-  cache(assetCache)
-  serveStatic('public/static/:file')
-})
-router.match('/fonts/:file', ({ cache, serveStatic }) => {
-  cache(assetCache)
-  serveStatic('public/fonts/:file')
-})
-router.match('/css/:file', ({ cache, serveStatic }) => {
-  cache(assetCache)
-  serveStatic('public/css/:file')
+router.static('public', {
+  handler:
+    (file) =>
+    ({ cache }) => {
+      cache(assetCache)
+    },
 })
 
 // Disable cross origin fetch of /api route

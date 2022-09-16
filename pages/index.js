@@ -19,7 +19,7 @@ const Home = ({ homeTagline, origin }) => {
               quality={30}
               placeholder="blur"
               className="rounded-full grayscale"
-              src={`${origin}/static/favicon-image.jpg`}
+              src={`/static/favicon-image.jpg`}
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(1400, 720))}`}
             />
           </div>
