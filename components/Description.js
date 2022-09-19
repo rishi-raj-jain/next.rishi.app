@@ -40,6 +40,8 @@ const Description = ({ heading = '', subHead = '', description = '', data = fall
                 {j.name}
               </p>
               <a
+                target="_blank"
+                href={j.href || '#'}
                 className={classNames('flex flex-row items-center justify-start font-light text-black hover:underline dark:text-slate-200', {
                   'w-full animate-pulse bg-black/50 dark:bg-white/50': j.title.length < 1,
                 })}

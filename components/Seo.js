@@ -8,8 +8,9 @@ const SEO = ({
   pubDate,
   canonical,
   description,
-  image = `${canonical}/static/social-media-card.jpg`,
-  faviconImage = `${canonical}/static/favicon-image.jpg`,
+  origin = 'https://rishi.app',
+  image = `${origin}/static/social-media-card.jpg`,
+  faviconImage = `${origin}/static/favicon-image.jpg`,
   children,
 }) => {
   const Title = `${title ?? defaultTitle}`.trim()
