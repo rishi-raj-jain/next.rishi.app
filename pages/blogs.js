@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SEO from '@/components/Seo'
+import { Prefetch } from '@layer0/react'
 import { getOrigin } from '@/lib/operations'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
@@ -55,7 +56,9 @@ const Blogs = ({ allPosts, recommendedPosts, data, origin }) => {
                     className="mt-3 hover:underline"
                     id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
                   >
-                    <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
+                    <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
+                      <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
+                    </Prefetch>
                   </a>
                 </Link>
                 <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>

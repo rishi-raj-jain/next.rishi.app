@@ -27,12 +27,12 @@
     "storyblok-js-client": "^4.1.5"
   },
   "devDependencies": {
-    "@layer0/cli": "^4.18.1",
-    "@layer0/core": "^4.18.1",
-    "@layer0/devtools": "^4.18.1",
-    "@layer0/next": "^4.18.1",
-    "@layer0/prefetch": "^4.18.1",
-    "@layer0/react": "^4.18.1",
+    "@layer0/cli": "^4.18.10",
+    "@layer0/core": "^4.18.10",
+    "@layer0/devtools": "^4.18.10",
+    "@layer0/next": "^4.18.10",
+    "@layer0/prefetch": "^4.18.10",
+    "@layer0/react": "^4.18.10",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.7",
