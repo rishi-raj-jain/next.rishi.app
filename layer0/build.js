@@ -1,6 +1,6 @@
 const { join } = require('path')
-const esbuild = require('esbuild')
 const { exit } = require('process')
+const { buildSync } = require('esbuild')
 const { DeploymentBuilder } = require('@layer0/core/deploy')
 
 const appDir = process.cwd()
@@ -13,7 +13,8 @@ module.exports = async function build(options) {
     await builder.exec(command)
     builder.addJSAsset(join(appDir, '.next', 'standalone'), 'dist')
     builder.addJSAsset(join(appDir, '.next', 'static'), join('dist', '.next', 'static'))
-    esbuild.buildSync({
+    builder.addJSAsset(join(appDir, 'public'), join('dist', 'public'))
+    buildSync({
       entryPoints: [`${appDir}/sw/service-worker.js`],
       outfile: `${appDir}/dist/service-worker.js`,
       minify: true,

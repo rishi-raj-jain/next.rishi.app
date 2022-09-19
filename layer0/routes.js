@@ -1,4 +1,7 @@
+const { join } = require('path')
+const { globbySync } = require('globby')
 const { Router } = require('@layer0/core/router')
+const { isProductionBuild } = require('@layer0/core/environment')
 const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 
 // Create a new router
@@ -18,13 +21,12 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 })
 
 // Cache assets
-router.static('public', {
-  handler:
-    (file) =>
-    ({ cache }) => {
+if (isProductionBuild())
+  globbySync(globbySync(join(process.cwd(), 'dist', 'public', '**', '*'))).forEach((i) => {
+    router.match(i.replace('public/', ''), ({ cache }) => {
       cache(assetCache)
-    },
-})
+    })
+  })
 
 // Disable cross origin fetch of /api route
 router.match('/api/:path*', ({ setResponseHeader }) => {
