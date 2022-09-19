@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
 import { useState, useEffect } from 'react'
-import { install } from '@layer0/prefetch/window'
 import Description from '@/components/Description'
 import AboutWithFallback from '@/components/About'
 import BlogFallback from '@/components/Fallback/Blogs'
+import { install, prefetch } from '@layer0/prefetch/window'
 
 if (process.env.NODE_ENV == 'production') {
   Layer0RUM('16dbca52-84e4-4087-96d7-1d0aab0c4421')
@@ -26,6 +26,28 @@ const App = ({ Component, pageProps }) => {
   const [changingTo, setChangingTo] = useState('')
   useEffect(() => {
     install()
+    prefetch('/css/dark.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+    prefetch('/css/light.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+    document.querySelectorAll('link').forEach((i) => {
+      if (i.href) {
+        prefetch(i.href, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+      }
+    })
+    document.querySelectorAll('script').forEach((i) => {
+      if (i.src) {
+        prefetch(i.src, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+      }
+    })
+    document.querySelectorAll('img').forEach((i) => {
+      if (i.src) {
+        prefetch(i.src, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+      }
+      if (i.srcset) {
+        i.srcset.split(',').forEach((j) => {
+          prefetch(j.trim(), 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+        })
+      }
+    })
     const handleRouteChange = (url, { shallow }) => {
       setLoading(true)
       setChangingTo(url)
