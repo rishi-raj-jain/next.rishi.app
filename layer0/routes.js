@@ -1,8 +1,8 @@
 const { join } = require('path')
 const { globbySync } = require('globby')
 const { Router } = require('@layer0/core/router')
+const { assetCache, nextCache } = require('./cache.js')
 const { isProductionBuild } = require('@layer0/core/environment')
-const { foreverEdge, assetCache, nextCache } = require('./cache.js')
 
 // Create a new router
 const router = new Router()
@@ -23,10 +23,13 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 // Cache assets
 if (isProductionBuild()) {
   // Crawl through the public directory present in the dist folder of the AWS lambda
-  globbySync(globbySync(join(process.cwd(), 'dist', 'public', '**', '*'))).forEach((i) => {
-    router.match(i.replace('public/', ''), ({ cache }) => {
+  globbySync(join(process.cwd(), 'dist', 'public', '**', '*')).forEach((i) => {
+    router.match(i.replace(join(process.cwd(), 'dist', 'public'), ''), ({ cache }) => {
       cache(assetCache)
     })
+  })
+  router.match('/_next/static/:path*', ({ cache }) => {
+    cache(assetCache)
   })
 }
 
@@ -38,7 +41,7 @@ router.match('/api/:path*', ({ setResponseHeader }) => {
 // Caching the Next.js optimized images forever
 router.match('/_next/image/:path*', ({ cache, removeUpstreamResponseHeader }) => {
   removeUpstreamResponseHeader('set-cookie')
-  cache(foreverEdge)
+  cache(assetCache)
 })
 
 // Caching the Next.js data props

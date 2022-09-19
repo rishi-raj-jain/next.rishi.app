@@ -1,9 +1,67 @@
-import { Prefetcher } from '@layer0/prefetch/sw'
-import { precacheAndRoute } from 'workbox-precaching'
 import { skipWaiting, clientsClaim } from 'workbox-core'
+import { Prefetcher, prefetch } from '@layer0/prefetch/sw'
+import DeepFetchPlugin from '@layer0/prefetch/sw/DeepFetchPlugin'
 
 skipWaiting()
 clientsClaim()
-precacheAndRoute(self.__WB_MANIFEST || [])
 
-new Prefetcher().route()
+new Prefetcher({
+  plugins: [
+    new DeepFetchPlugin([
+      {
+        selector: 'script',
+        maxMatches: 20,
+        attribute: 'src',
+        as: 'script',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: '[rel="stylesheet"]',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: '[rel="preload"]',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: 'img',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: 'source',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+      {
+        selector: 'video',
+        maxMatches: 20,
+        attribute: 'href',
+        as: 'style',
+        callback: deepFetchAssets,
+      },
+    ]),
+  ],
+})
+  .route()
+  .cache(/^https:\/\/(.*?)\.*\/.*/)
+
+function deepFetchAssets({ $el, el, $ }) {
+  let attributesToLookFor = ['href', 'src', 'url']
+  attributesToLookFor.forEach((i) => {
+    let urlTemplate = $(el).attr(i)
+    if (urlTemplate) {
+      prefetch(urlTemplate)
+    }
+  })
+}
