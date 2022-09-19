@@ -15,6 +15,14 @@ const navLinks = [
     pathname: '/blogs',
     name: 'Blogs',
   },
+  {
+    pathname: '/cv',
+    name: 'CV',
+  },
+  {
+    pathname: '/storyblok',
+    name: 'Storyblok',
+  },
 ]
 
 const Navbar = () => {
@@ -25,15 +33,6 @@ const Navbar = () => {
   }, [])
   return (
     <div className="sticky top-0 z-10 flex w-full flex-col items-center backdrop-blur-xl backdrop-filter">
-      <a
-        target="_blank"
-        href="https://try.layer0.co/nextjs-storyblok/"
-        className={`w-full ${
-          theme === 'light' ? 'bg-white text-black' : 'bg-black text-white'
-        } flex flex-row items-center justify-center border-b border-gray-600`}
-      >
-        <h2>Coming in from JSWORLD Conference? &rarr;</h2>
-      </a>
       <div className="flex w-full max-w-[90vw] flex-row items-center justify-between sm:px-10 lg:max-w-[75vw]">
         <button
           onClick={() => {

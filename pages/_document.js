@@ -1,4 +1,3 @@
-import { structuredData } from '@/lib/data'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
@@ -12,12 +11,6 @@ export default class MyDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="google-site-verification" content="hgb7sEPSlo0We6rT4UtpV04_qCFTryuwkcSEdtmAxr8" />
           <meta name="twitter:card" content="summary_large_image" />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(structuredData),
-            }}
-          />
         </Head>
         <body>
           <Main />

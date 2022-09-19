@@ -21,12 +21,14 @@ router.match('/__xdn__/:path*', ({ redirect }) => {
 })
 
 // Cache assets
-if (isProductionBuild())
+if (isProductionBuild()) {
+  // Crawl through the public directory present in the dist folder of the AWS lambda
   globbySync(globbySync(join(process.cwd(), 'dist', 'public', '**', '*'))).forEach((i) => {
     router.match(i.replace('public/', ''), ({ cache }) => {
       cache(assetCache)
     })
   })
+}
 
 // Disable cross origin fetch of /api route
 router.match('/api/:path*', ({ setResponseHeader }) => {
@@ -40,12 +42,10 @@ router.match('/_next/image/:path*', ({ cache, removeUpstreamResponseHeader }) =>
 })
 
 // Caching the Next.js data props
-router.match('/_next/data/:build/blog/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
-  removeUpstreamResponseHeader('cache-control')
+router.match('/_next/data/:build/blog/:name.json', ({ cache }) => {
   cache(nextCache)
 })
-router.match('/_next/data/:build/:name.json', ({ cache, removeUpstreamResponseHeader }) => {
-  removeUpstreamResponseHeader('cache-control')
+router.match('/_next/data/:build/:name.json', ({ cache }) => {
   cache(nextCache)
 })
 

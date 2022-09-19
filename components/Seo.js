@@ -1,16 +1,15 @@
 import Head from 'next/head'
 import { Fragment } from 'react'
-import { defaultDescription, defaultTitle, profileLinks } from '@/lib/data'
+import { defaultDescription, defaultTitle, profileLinks, structuredData } from '@/lib/data'
 
 const SEO = ({
-  deploymentUrl,
   title,
-  description,
-  image = `${deploymentUrl}/static/social-media-card.jpg`,
+  author,
   pubDate,
   canonical,
-  author,
-  faviconImage = `${deploymentUrl}/static/favicon-image.jpg`,
+  description,
+  image = `${canonical}/static/social-media-card.jpg`,
+  faviconImage = `${canonical}/static/favicon-image.jpg`,
   children,
 }) => {
   const Title = `${title ?? defaultTitle}`.trim()
@@ -41,6 +40,7 @@ const SEO = ({
       )}
       {canonical && <link rel="canonical" href={canonical} />}
       {author && <meta name="author" content={author} />}
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData(canonical)) }} type="application/ld+json" />
       {children}
     </Head>
   )

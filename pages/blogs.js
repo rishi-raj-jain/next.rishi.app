@@ -1,46 +1,35 @@
 import Link from 'next/link'
-import { useEffect } from 'react'
 import SEO from '@/components/Seo'
 import { getOrigin } from '@/lib/operations'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
-import { prefetch } from '@layer0/prefetch/window'
 import { createNextDataURL } from '@layer0/next/client'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
+import { getAllPostsForHome, getRecommendedPosts, getTagline } from '@/lib/api'
 
-function isElementInViewport(el) {
-  var rect = el.getBoundingClientRect()
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  )
+export async function getServerSideProps({ req }) {
+  let origin = getOrigin(req)
+  let props = { origin }
+  const allPosts = await getAllPostsForHome()
+  if (allPosts && allPosts.length > 0) {
+    props['allPosts'] = allPosts
+  }
+  const recommendedPosts = await getRecommendedPosts()
+  if (recommendedPosts && recommendedPosts.length > 0) {
+    props['recommendedPosts'] = recommendedPosts
+  }
+  const data = await getTagline('blogs')
+  if (data && data?.type) {
+    props['data'] = new RichTextResolver().render(data)
+  }
+  return { props }
 }
 
-const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
+const Blogs = ({ allPosts, recommendedPosts, data, origin }) => {
   const SEODetails = {
     title: `Blogs - Rishi Raj Jain`,
     canonical: `${origin}/blogs`,
-    deploymentUrl: origin,
   }
-
-  useEffect(() => {
-    const onScroll = () => {
-      allPosts.forEach((item) => {
-        let selector = `[href*="/blog/${item.slug}"]`
-        if (!document.querySelector(selector)) return
-        if (isElementInViewport(document.querySelector(selector))) {
-          prefetch(createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } }))
-        }
-      })
-    }
-    onScroll()
-    window.removeEventListener('scroll', onScroll)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
   return (
     <>
       <SEO {...SEODetails} />
@@ -49,7 +38,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
         <h2
           className="font-regular text-md mt-5 whitespace-pre-line dark:text-gray-400 sm:text-xl"
           dangerouslySetInnerHTML={{
-            __html: new RichTextResolver().render(blogsTagline),
+            __html: data,
           }}
         />
         <SearchBar content={allPosts} />
@@ -90,7 +79,7 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
                 target="_blank"
                 key={item.content.Title}
                 href={item.content.Url.url}
-                className="mt-5 truncate border-b pb-2 text-sm text-gray-500 hover:underline dark:border-gray-700 dark:text-gray-400"
+                className="mt-5 truncate border-b pb-2 text-sm font-light"
               >
                 {item.content.Title}
               </a>
@@ -103,13 +92,3 @@ const Blogs = ({ allPosts, recommendedPosts, blogsTagline, origin }) => {
 }
 
 export default Blogs
-
-export async function getServerSideProps({ req }) {
-  let origin = getOrigin(req)
-  const resp = await fetch(`${origin}/api/blogs`)
-  if (!resp.ok) return { notFound: true }
-  const data = await resp.json()
-  return {
-    props: { ...data, origin },
-  }
-}

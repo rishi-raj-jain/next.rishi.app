@@ -6,6 +6,7 @@ import Article from '@/components/Article'
 import markdownToHtml from '@/lib/markdown'
 import { getOrigin } from '@/lib/operations'
 import DateString from '@/components/DateString'
+import { getOtherBlogs, getPost } from '@/lib/api'
 import { getComments } from '@/components/blog/comments'
 
 // Lazy Load Comments Components
@@ -15,20 +16,37 @@ const WriteComment = dynamic(() => import('@/components/blog/comments'), { ssr: 
 // Lazy Load More Posts Components
 const MorePosts = dynamic(() => import('@/components/blog/more-posts'), { ssr: false })
 
-const Post = ({ post, morePosts, origin }) => {
-  const [comments, setComments] = useState([])
+export async function getServerSideProps({ req, params }) {
+  let origin = getOrigin(req)
+  let props = { origin }
+  const data = await getPost(params.slug)
+  if (data && data.post) {
+    data['post']['content']['long_text'] = await markdownToHtml(data['post']['content']['long_text'])
+    const { first_published_at, full_slug } = data['post']
+    const prevBlog = await getOtherBlogs(first_published_at, full_slug, 1, true)
+    const nextBlog = await getOtherBlogs(first_published_at, full_slug, 1, false)
+    data['morePosts'] = [].concat(prevBlog).concat(nextBlog)
+    props['data'] = data
+  }
+  return { props }
+}
+
+const Post = ({ data, origin }) => {
+  const { post, morePosts } = data
   const SEODetails = {
     description: post.content.intro,
     pubDate: post.first_published_at,
     author: post.content.author.name,
     canonical: `${origin}/blog/${post.slug}`,
     title: `${post.content.title} - ${post.content.author.name}`,
-    deploymentUrl: origin,
   }
   if (post.content.image)
     SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
       post.content.title
     )}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
+
+  const [comments, setComments] = useState([])
+
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails} />
@@ -57,15 +75,3 @@ const Post = ({ post, morePosts, origin }) => {
 }
 
 export default Post
-
-export async function getServerSideProps({ req, params }) {
-  let origin = getOrigin(req)
-  const resp = await fetch(`${origin}/api/blog/${params.slug}`)
-  if (!resp.ok) return { notFound: true }
-  const data = await resp.json()
-  data['post']['content']['long_text'] = data['post']['content']['long_text'].replace(/layer0\.link/g, 'layer0-limelight.link')
-  data['post']['content']['long_text'] = await markdownToHtml(data['post']['content']['long_text'])
-  return {
-    props: { ...data, origin },
-  }
-}

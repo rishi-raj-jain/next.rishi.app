@@ -33,5 +33,6 @@ export const nextCache = {
   edge: {
     maxAgeSeconds: ONE_HOUR,
     staleWhileRevalidateSeconds: 0,
+    forcePrivateCaching: true, // caches even when cache-control set to private
   },
 }

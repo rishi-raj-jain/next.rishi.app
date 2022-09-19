@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-
 
       - run: yarn install
-      
+
       - run: npm run layer0:deploy -- --token=$LAYER0_DEPLOY_TOKEN
         env:
           LAYER0_DEPLOY_TOKEN: ${{ secrets.LAYER0_DEPLOY_TOKEN }}
