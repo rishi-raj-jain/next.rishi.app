@@ -32,6 +32,14 @@ export async function getServerSideProps({ req }) {
   if (aboutTagline && aboutTagline?.type) {
     props['aboutTagline'] = new RichTextResolver().render(aboutTagline)
   }
+  if (!props.hasOwnProperty('Timeline')) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/404',
+      },
+    }
+  }
   return { props }
 }
 

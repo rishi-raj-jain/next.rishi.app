@@ -13,6 +13,14 @@ export async function getServerSideProps({ req }) {
   if (data && data?.type) {
     props['data'] = new RichTextResolver().render(data)
   }
+  if (!props.hasOwnProperty('data')) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/404',
+      },
+    }
+  }
   return { props }
 }
 

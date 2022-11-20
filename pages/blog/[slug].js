@@ -28,6 +28,14 @@ export async function getServerSideProps({ req, params }) {
     data['morePosts'] = [].concat(prevBlog).concat(nextBlog)
     props['data'] = data
   }
+  if (!props.hasOwnProperty('data')) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/404',
+      },
+    }
+  }
   return { props }
 }
 
