@@ -2,7 +2,6 @@ import SEO from '@/components/Seo'
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import Author from '@/components/Author'
-import Article from '@/components/Article'
 import markdownToHtml from '@/lib/markdown'
 import { useEffect, useState } from 'react'
 import { getOrigin } from '@/lib/operations'
@@ -48,6 +47,18 @@ const Post = ({ data, origin }) => {
       post?.content?.title
     )}&image=${encodeURIComponent(post?.content?.image)}&mode=${encodeURIComponent('true')}`,
   })
+
+  useEffect(() => {
+    try {
+      if (document.querySelector('link[href="/css/dark.css"]')) {
+      } else {
+        var darkCSS = document.createElement('link')
+        darkCSS.href = '/css/dark.css'
+        darkCSS.rel = 'stylesheet'
+        document.head.appendChild(darkCSS)
+      }
+    } catch (e) {}
+  }, [])
 
   useEffect(() => {
     let post,
@@ -96,7 +107,14 @@ const Post = ({ data, origin }) => {
           <Author post={post} {...SEODetails} />
         </div>
         <div className="mt-7 h-[1px] w-full bg-gray-200"></div>
-        <Article post={post} />
+        <article
+          className="prose mt-10 max-w-none text-sm dark:prose-light"
+          dangerouslySetInnerHTML={{
+            __html:
+              post?.content?.long_text ??
+              '<h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3>',
+          }}
+        />
         <WriteComment setComments={setComments} slug={post?.slug} />
         <div className="mt-10 w-full border-t pt-10 dark:border-gray-500">
           <button

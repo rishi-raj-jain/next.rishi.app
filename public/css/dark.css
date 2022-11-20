@@ -7,8 +7,6 @@ pre[class*='language-'] {
   word-wrap: normal;
   color: #eee;
   background: #000000;
-  border-width: thin;
-  border-color: #ffffff30;
   font-family: 'Inter';
   font-display: optional;
   font-size: 1em;
@@ -43,6 +41,7 @@ pre[class*='language-'] {
   position: relative;
   margin: 0.5em 0;
   padding: 1.25em 1em;
+  border-radius: 5px;
 }
 .language-css > code,
 .language-sass > code,

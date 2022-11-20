@@ -30,7 +30,6 @@ const App = ({ Component, pageProps }) => {
   useEffect(() => {
     install()
     prefetch('/css/dark.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
-    prefetch('/css/light.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
     document.querySelectorAll('link').forEach((i) => {
       if (i.href) {
         prefetch(i.href, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })

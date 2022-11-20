@@ -45,44 +45,46 @@ const Blogs = ({ allPosts, recommendedPosts, data, origin }) => {
         <SearchBar content={allPosts} />
         <div className="flex flex-row flex-wrap">
           <div className="mt-10 flex w-full flex-col lg:mt-20 lg:w-2/3 lg:pr-10">
-            {allPosts.map((item) => (
-              <div key={`/blog/${item.slug}`} className="mb-10 flex flex-col border-b pb-10 dark:border-gray-700">
-                <span className="text-gray-700 dark:text-gray-400">
-                  <DateString date={new Date(item.first_published_at)} />
-                </span>
-                <Link
-                  href={`/blog/${item.slug}`}
-                  className="mt-3 hover:underline"
-                  id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
-                >
-                  <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
-                    <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
-                  </Prefetch>
-                </Link>
-                <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>
-                <Link
-                  href={`/blog/${item.slug}`}
-                  className="mt-5 text-sm uppercase text-blue-500 hover:underline"
-                  id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
-                >
-                  Read More &rarr;
-                </Link>
-              </div>
-            ))}
+            {allPosts &&
+              allPosts.map((item) => (
+                <div key={`/blog/${item.slug}`} className="mb-10 flex flex-col border-b pb-10 dark:border-gray-700">
+                  <span className="text-gray-700 dark:text-gray-400">
+                    <DateString date={new Date(item.first_published_at)} />
+                  </span>
+                  <Link
+                    href={`/blog/${item.slug}`}
+                    className="mt-3 hover:underline"
+                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                  >
+                    <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
+                      <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
+                    </Prefetch>
+                  </Link>
+                  <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>
+                  <Link
+                    href={`/blog/${item.slug}`}
+                    className="mt-5 text-sm uppercase text-blue-500 hover:underline"
+                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                  >
+                    Read More &rarr;
+                  </Link>
+                </div>
+              ))}
           </div>
           <div className="mt-0 flex w-full flex-col lg:mt-20 lg:w-1/3">
             <h4 className="text-md font-bold sm:text-lg">Recommended Posts</h4>
-            {recommendedPosts.map((item) => (
-              <a
-                rel="noopener"
-                target="_blank"
-                key={item.content.Title}
-                href={item.content.Url.url}
-                className="mt-5 truncate border-b pb-2 text-sm font-light"
-              >
-                {item.content.Title}
-              </a>
-            ))}
+            {recommendedPosts &&
+              recommendedPosts.map((item) => (
+                <a
+                  rel="noopener"
+                  target="_blank"
+                  key={item.content.Title}
+                  href={item.content.Url.url}
+                  className="mt-5 truncate border-b pb-2 text-sm font-light"
+                >
+                  {item.content.Title}
+                </a>
+              ))}
           </div>
         </div>
       </div>
