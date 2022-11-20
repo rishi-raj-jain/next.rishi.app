@@ -11,7 +11,14 @@ const Article = ({ post }) => {
 
   return (
     <>
-      <article className="prose mt-10 max-w-none text-sm dark:prose-light" dangerouslySetInnerHTML={{ __html: post.content.long_text }} />
+      <article
+        className="prose mt-10 max-w-none text-sm dark:prose-light"
+        dangerouslySetInnerHTML={{
+          __html:
+            post?.content?.long_text ??
+            '<h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3><h3 class="w-full animate-pulse bg-black/50 py-2 dark:bg-white/50"></h3>',
+        }}
+      />
       <link rel="stylesheet" href={`/css/${mounted ? (theme === 'system' ? systemTheme : theme) : 'light'}.css`} />
     </>
   )

@@ -1,5 +1,7 @@
+import Home from 'pages'
 import '@/styles/global.css'
-import Layer0RUM from 'layer0/rum'
+import Post from './blog/[slug]'
+import Layer0RUM from 'edgio/rum'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
@@ -7,16 +9,17 @@ import { useState, useEffect } from 'react'
 import Description from '@/components/Description'
 import AboutWithFallback from '@/components/About'
 import BlogFallback from '@/components/Fallback/Blogs'
-import { install, prefetch } from '@layer0/prefetch/window'
+import { install, prefetch } from '@edgio/prefetch/window'
 
 if (process.env.NODE_ENV == 'production') {
   Layer0RUM('16dbca52-84e4-4087-96d7-1d0aab0c4421')
 }
 
 const fallbackMap = {
-  '/blogs': <BlogFallback subHead="Recommended Posts" heading="Blogs" />,
-  '/storyblok': <Description />,
+  '/': <Home />,
   '/cv': <Description />,
+  '/storyblok': <Description />,
+  '/blogs': <BlogFallback subHead="Recommended Posts" heading="Blogs" />,
   '/about': <AboutWithFallback heading="About Me" description="My Timeline" />,
 }
 
@@ -25,7 +28,7 @@ const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(false)
   const [changingTo, setChangingTo] = useState('')
   useEffect(() => {
-    install()
+    // install()
     prefetch('/css/dark.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
     prefetch('/css/light.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
     document.querySelectorAll('link').forEach((i) => {
@@ -50,6 +53,9 @@ const App = ({ Component, pageProps }) => {
     })
     const handleRouteChange = (url, { shallow }) => {
       setLoading(true)
+      if (url.match('/blog/+')) {
+        fallbackMap[url] = <Post />
+      }
       setChangingTo(url)
       console.log(`App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`)
     }

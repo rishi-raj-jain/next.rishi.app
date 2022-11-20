@@ -1,8 +1,8 @@
 const { join } = require('path')
 const { globbySync } = require('globby')
-const { Router } = require('@layer0/core/router')
+const { Router } = require('@edgio/core/router')
 const { assetCache, nextCache } = require('./cache.js')
-const { isProductionBuild } = require('@layer0/core/environment')
+const { isProductionBuild } = require('@edgio/core/environment')
 
 // Create a new router
 const router = new Router()
@@ -13,11 +13,6 @@ router.noIndexPermalink()
 // Serve the compiled service worker with Layer0 prefetcher working
 router.match('/service-worker.js', ({ serviceWorker }) => {
   serviceWorker('dist/service-worker.js')
-})
-
-// Re-Route xdn requests to layer0
-router.match('/__xdn__/:path*', ({ redirect }) => {
-  redirect('/__layer0__/:path*', 301)
 })
 
 // Cache assets

@@ -25,13 +25,11 @@ const SearchBar = ({ content }) => {
       {searcValue.length > 0 && results.length > 0 && (
         <div className="top-10 mt-2 shadow">
           {results.map((item) => (
-            <Link key={item.slug} href={`/blog/${item.slug}`} passHref>
-              <a>
-                <div className="flex flex-col border-t py-3 px-5">
-                  <span className="text-md py-1 font-bold">{item.content.title}</span>
-                  <span className="py-1 text-sm">{item.content.intro}</span>
-                </div>
-              </a>
+            <Link key={item.slug} href={`/blog/${item.slug}`}>
+              <div className="flex flex-col border-t py-3 px-5">
+                <span className="text-md py-1 font-bold">{item.content.title}</span>
+                <span className="py-1 text-sm">{item.content.intro}</span>
+              </div>
             </Link>
           ))}
         </div>

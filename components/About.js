@@ -32,15 +32,15 @@ const AboutWithFallback = ({ heading = '', tagline = '', description = '', data 
           </h1>
           {Object.keys(data)
             .sort((a, b) => (a > b ? -1 : 1))
-            .map((item) => (
-              <Fragment key={item}>
+            .map((item, ind) => (
+              <Fragment key={`${item}_${ind}`}>
                 <span
                   className={classNames('mt-8 text-lg font-bold', { 'w-[100px] animate-pulse bg-black/50 px-1 py-2 dark:bg-white/50': item < 1800 })}
                 >
                   {item < 1800 ? '' : item}
                 </span>
-                {data[item].map((exp) => (
-                  <TimelineItem key={exp.content.Title} {...exp['content']} />
+                {data[item].map((exp, ind) => (
+                  <TimelineItem key={`${exp.content.Title}_${ind}`} {...exp['content']} />
                 ))}
               </Fragment>
             ))}

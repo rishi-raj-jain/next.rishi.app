@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import SEO from '@/components/Seo'
-import { Prefetch } from '@layer0/react'
+import { Prefetch } from '@edgio/react'
 import { getOrigin } from '@/lib/operations'
 import SearchBar from '@/components/SearchBar'
 import DateString from '@/components/DateString'
-import { createNextDataURL } from '@layer0/next/client'
+import { createNextDataURL } from '@edgio/next/client'
 import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 import { getAllPostsForHome, getRecommendedPosts, getTagline } from '@/lib/api'
 
@@ -50,26 +50,22 @@ const Blogs = ({ allPosts, recommendedPosts, data, origin }) => {
                 <span className="text-gray-700 dark:text-gray-400">
                   <DateString date={new Date(item.first_published_at)} />
                 </span>
-                <Link href={`/blog/${item.slug}`}>
-                  <a
-                    href={`/blog/${item.slug}`}
-                    className="mt-3 hover:underline"
-                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
-                  >
-                    <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
-                      <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
-                    </Prefetch>
-                  </a>
+                <Link
+                  href={`/blog/${item.slug}`}
+                  className="mt-3 hover:underline"
+                  id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                >
+                  <Prefetch url={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}>
+                    <span className="text-lg font-bold sm:text-2xl">{item.content.title}</span>
+                  </Prefetch>
                 </Link>
                 <span className="mt-3 text-sm text-gray-700 line-clamp-2 dark:text-gray-400">{item.content.intro}</span>
-                <Link href={`/blog/${item.slug}`}>
-                  <a
-                    href={`/blog/${item.slug}`}
-                    className="mt-5 text-sm uppercase text-blue-500 hover:underline"
-                    id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
-                  >
-                    Read More &rarr;
-                  </a>
+                <Link
+                  href={`/blog/${item.slug}`}
+                  className="mt-5 text-sm uppercase text-blue-500 hover:underline"
+                  id={createNextDataURL({ href: `/blog/${item.slug}`, routeParams: { slug: item.slug } })}
+                >
+                  Read More &rarr;
                 </Link>
               </div>
             ))}

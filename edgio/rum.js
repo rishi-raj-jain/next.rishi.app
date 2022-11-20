@@ -1,4 +1,4 @@
-import { Metrics } from '@layer0/rum'
+import { Metrics } from '@edgio/rum'
 
 // Implementing Real Time User Monitoring (Core Web Vitals)
 // https://docs.layer0.co/guides/core_web_vitals#npm-or-yarn

@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import dynamic from 'next/dynamic'
 import SEO from '@/components/Seo'
+import dynamic from 'next/dynamic'
+import classNames from 'classnames'
 import Author from '@/components/Author'
 import Article from '@/components/Article'
 import markdownToHtml from '@/lib/markdown'
+import { useEffect, useState } from 'react'
 import { getOrigin } from '@/lib/operations'
 import DateString from '@/components/DateString'
 import { getOtherBlogs, getPost } from '@/lib/api'
@@ -32,33 +33,71 @@ export async function getServerSideProps({ req, params }) {
 }
 
 const Post = ({ data, origin }) => {
-  const { post, morePosts } = data
-  const SEODetails = {
-    description: post.content.intro,
-    pubDate: post.first_published_at,
-    author: post.content.author.name,
-    canonical: `${origin}/blog/${post.slug}`,
-    title: `${post.content.title} - ${post.content.author.name}`,
-  }
-  if (post.content.image)
-    SEODetails['image'] = `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
-      post.content.title
-    )}&image=${encodeURIComponent(post.content.image)}&mode=${encodeURIComponent('true')}`
+  const [comments, setComments] = useState()
+  const [post, setPost] = useState(data?.post ?? false)
+  const [morePosts, setMorePosts] = useState(data?.morePosts ?? false)
+  const [SEODetails, setSEODetails] = useState({
+    description: post?.content?.intro,
+    pubDate: post?.first_published_at,
+    author: post?.content?.author?.name,
+    canonical: `${origin}/blog/${post?.slug}`,
+    title: `${post?.content?.title} - ${post?.content?.author?.name}`,
+    [post?.content?.image
+      ? 'image'
+      : 'some-random-key']: `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
+      post?.content?.title
+    )}&image=${encodeURIComponent(post?.content?.image)}&mode=${encodeURIComponent('true')}`,
+  })
 
-  const [comments, setComments] = useState([])
+  useEffect(() => {
+    let post,
+      morePosts = null
+    if (data) {
+      if (data.hasOwnProperty('post')) {
+        post = data.post
+      }
+      if (data.hasOwnProperty('morePosts')) {
+        morePosts = data.morePosts
+      }
+    }
+    if (morePosts) {
+      setMorePosts(morePosts)
+    }
+    if (post) {
+      setPost(post)
+      setSEODetails({
+        description: post?.content?.intro,
+        pubDate: post?.first_published_at,
+        author: post?.content?.author?.name,
+        canonical: `${origin}/blog/${post?.slug}`,
+        title: `${post?.content?.title} - ${post?.content?.author?.name}`,
+        [post?.content?.image
+          ? 'image'
+          : 'some-random-key']: `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
+          post?.content?.title
+        )}&image=${encodeURIComponent(post?.content?.image)}&mode=${encodeURIComponent('true')}`,
+      })
+    }
+  }, [data])
 
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails} />
       <div className="w-full md:max-w-2xl">
         <div className="flex w-full flex-col items-center">
-          <DateString date={new Date(SEODetails.pubDate)} />
-          <h1 className="mt-3 mb-7 text-center text-2xl font-bold sm:text-4xl">{post.content.title}</h1>
+          <DateString date={new Date(SEODetails?.pubDate)} />
+          <h1
+            className={classNames('mt-3 mb-7 text-center text-2xl font-bold sm:text-4xl', {
+              'w-full animate-pulse bg-black/50 py-4 dark:bg-white/50': !post?.content?.title?.length,
+            })}
+          >
+            {post?.content?.title}
+          </h1>
           <Author post={post} {...SEODetails} />
         </div>
         <div className="mt-7 h-[1px] w-full bg-gray-200"></div>
         <Article post={post} />
-        <WriteComment setComments={setComments} slug={post.slug} />
+        <WriteComment setComments={setComments} slug={post?.slug} />
         <div className="mt-10 w-full border-t pt-10 dark:border-gray-500">
           <button
             onClick={() => getComments(post.slug, setComments)}

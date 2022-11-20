@@ -1,5 +1,5 @@
+import Image from 'next/image'
 import SEO from '@/components/Seo'
-import Image from 'next/future/image'
 import { getTagline } from '@/lib/api'
 import { getOrigin } from '@/lib/operations'
 import { shimmer, toBase64 } from '@/lib/shimmer'
@@ -16,7 +16,7 @@ export async function getServerSideProps({ req }) {
   return { props }
 }
 
-const Home = ({ data, origin }) => {
+const Home = ({ data = null, origin = 'https://rishi.app' }) => {
   return (
     <>
       <SEO canonical={origin} />
@@ -42,12 +42,15 @@ const Home = ({ data, origin }) => {
             <SocialLinks />
           </div>
           <div className="mt-10 h-[1px] w-full bg-gray-200 dark:bg-gray-700"></div>
-          <h2
-            dangerouslySetInnerHTML={{
-              __html: data,
-            }}
-            className="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left"
-          ></h2>
+          {data && (
+            <h2
+              dangerouslySetInnerHTML={{
+                __html: data,
+              }}
+              className="text-md mt-10 text-center text-gray-500 dark:text-white sm:text-lg md:text-left"
+            ></h2>
+          )}
+          {!data && <h2 className="mt-5 w-1/2 animate-pulse bg-black/50 py-4 dark:bg-white/50" />}
         </div>
         <div className="hidden flex-col items-end justify-center md:flex md:w-1/2">
           <div className="grayscale filter">

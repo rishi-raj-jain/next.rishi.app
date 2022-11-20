@@ -25,6 +25,9 @@ yarn-error.log*
 # layer0 files
 .layer0
 
+# edgio files
+.edgio
+
 # nextjs files
 .next
 

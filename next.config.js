@@ -15,6 +15,10 @@ module.exports = {
         protocol: 'https',
         hostname: '**.app',
       },
+      {
+        protocol: 'https',
+        hostname: 'placehold.jp',
+      },
     ],
   },
 }
