@@ -28,7 +28,7 @@ const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(false)
   const [changingTo, setChangingTo] = useState('')
   useEffect(() => {
-    // install()
+    install()
     prefetch('/css/dark.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
     prefetch('/css/light.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
     document.querySelectorAll('link').forEach((i) => {
