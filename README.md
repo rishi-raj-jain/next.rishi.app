@@ -1,7 +1,16 @@
-<a href="https://rishi.app">
-  <img alt="Rishi Raj Jain - Technical Customer Success Manager at Edgio" src="https://rishi.app/static/social-media-card.jpg">
-  <h1 align="center">rishi.app</h1>
-</a>
+<p align="center">
+  <a href="https://rishi.app">
+    <img alt="Rishi Raj Jain - Technical Customer Success Manager at Edgio" src="https://rishi.app/static/social-media-card.jpg">
+  </a>
+</p>
+
+<p align="center">
+    <h1 align="center">
+      <a href="https://rishi.app">
+        rishi.app
+      </a>
+    </h1>
+</p>
 
 <p align="center">
   <a href="https://twitter.com/rishi_raj_jain_">
