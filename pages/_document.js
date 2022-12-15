@@ -11,6 +11,7 @@ const Document = ({ dark }) => {
         {dark && <link rel="stylesheet" href="/css/dark.css" />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="google-site-verification" content="hgb7sEPSlo0We6rT4UtpV04_qCFTryuwkcSEdtmAxr8" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3793400768853434" crossorigin="anonymous"></script>
       </Head>
       <body>
         <Main />
