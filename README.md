@@ -1,13 +1,13 @@
 <p align="center">
-  <a href="https://rishi.app">
-    <img alt="Rishi Raj Jain - Technical Customer Success Manager at Edgio" src="https://rishi.app/static/social-media-card.jpg">
+  <a href="https://next.rishi.app">
+    <img alt="Rishi Raj Jain - Technical Customer Success Manager at Edgio" src="https://next.rishi.app/static/social-media-card.jpg">
   </a>
 </p>
 
 <p align="center">
     <h1 align="center">
-      <a href="https://rishi.app">
-        rishi.app
+      <a href="https://next.rishi.app">
+        next.rishi.app
       </a>
     </h1>
 </p>
@@ -16,7 +16,7 @@
   <a href="https://twitter.com/rishi_raj_jain_">
     <img src="https://img.shields.io/twitter/follow/rishi_raj_jain_?style=flat&label=%40rishi_raj_jain_&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
   </a>
-  <a href="app.layer0.co/deploy?repo=https://github.com/rishi-raj-jain/rishi.app">
+  <a href="app.layer0.co/deploy?repo=https://github.com/rishi-raj-jain/next.rishi.app">
     <img src="https://docs.edg.io/button.svg" alt="Deploy To Edgio" height="20px" />
   </a>
 </p>
@@ -34,9 +34,9 @@ Rishi's portfolio is built with [Next.js](https://nextjs.org), [Storyblok](https
 
 ## Deploy Your Own
 
-You can deploy your own hosted version of rishi.app website.
+You can deploy your own hosted version of next.rishi.app website.
 
-[![Deploy with Edgio](https://docs.edg.io/button.svg)](app.layer0.co/deploy?repo=https://github.com/rishi-raj-jain/rishi.app)
+[![Deploy with Edgio](https://docs.edg.io/button.svg)](app.layer0.co/deploy?repo=https://github.com/rishi-raj-jain/next.rishi.app)
 
 ## Tech Stack
 

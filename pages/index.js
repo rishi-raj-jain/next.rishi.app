@@ -24,7 +24,7 @@ export async function getServerSideProps({ req }) {
   return { props }
 }
 
-const Home = ({ data = null, origin = 'https://rishi.app' }) => {
+const Home = ({ data = null, origin = 'https://next.rishi.app' }) => {
   return (
     <>
       <SEO canonical={origin} />

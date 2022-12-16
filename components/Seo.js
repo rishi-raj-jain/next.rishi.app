@@ -9,7 +9,7 @@ const SEO = ({
   pubDate,
   canonical,
   description,
-  origin = 'https://rishi.app',
+  origin = 'https://next.rishi.app',
   image = `${origin}/static/social-media-card.jpg`,
   faviconImage = `${origin}/static/favicon-image.jpg`,
   children,

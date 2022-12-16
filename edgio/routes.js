@@ -38,7 +38,7 @@ if (isProductionBuild()) {
 
 // Disable cross origin fetch of /api route
 router.match('/api/:path*', ({ setResponseHeader }) => {
-  setResponseHeader('Access-Control-Allow-Origin', 'https://rishi.app')
+  setResponseHeader('Access-Control-Allow-Origin', 'https://next.rishi.app')
 })
 
 // Caching the Next.js optimized images forever
