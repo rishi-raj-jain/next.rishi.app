@@ -11,7 +11,7 @@ const router = new Router({ indexPermalink: true })
 router.prerender(async () => {
   const blogs = await getAllPostsForHome()
   const nonDynamicPaths = ['/', '/cv', '/about', '/blogs', '/storyblok']
-  return [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths]
+  return [...blogs.map((i) => ({ path: `/blog/${i.slug}` })), ...nonDynamicPaths.map((i) => ({ path: i }))]
 })
 
 // Serve the compiled service worker with Layer0 prefetcher working
