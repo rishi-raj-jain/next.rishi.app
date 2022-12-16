@@ -65,6 +65,14 @@ const Post = ({ data, origin }) => {
   })
 
   useEffect(() => {
+    window.addEventListener('load', () => {
+      var sc = document.createElement('script')
+      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
+      document.querySelector('.before-article').appendChild(sc)
+    })
+  }, [])
+
+  useEffect(() => {
     let post,
       morePosts = null
     if (data) {
@@ -91,11 +99,6 @@ const Post = ({ data, origin }) => {
           .join('&')}`,
       })
     }
-    window.addEventListener('load', () => {
-      var sc = document.createElement('script')
-      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
-      document.querySelector('.before-article').appendChild(sc)
-    })
   }, [data])
 
   return (
