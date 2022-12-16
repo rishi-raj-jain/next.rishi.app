@@ -1,19 +1,17 @@
-const { build } = require('esbuild')
+const { join } = require('path')
+const { existsSync } = require('fs')
 const { createDevServer } = require('@edgio/core/dev')
+const { DeploymentBuilder } = require('@edgio/core/deploy')
+
+const appDir = process.cwd()
+const SW_SOURCE = join(appDir, 'sw', 'service-worker.js')
+const SW_DEST = join(appDir, '.edgio_temp', 'service-worker.js')
 
 module.exports = function () {
-  const appDir = process.cwd()
-  build({
-    entryPoints: [`${appDir}/sw/service-worker.js`],
-    outfile: `${appDir}/dist/service-worker.js`,
-    minify: true,
-    bundle: true,
-    define: {
-      'process.env.NODE_ENV': '"production"',
-      'process.env.EDGIO_PREFETCH_HEADER_VALUE': '"1"',
-      'process.env.EDGIO_PREFETCH_CACHE_NAME': '"prefetch"',
-    },
-  })
+  if (existsSync(SW_SOURCE)) {
+    const builder = new DeploymentBuilder()
+    builder.buildServiceWorker(SW_SOURCE, SW_DEST, false)
+  }
   return createDevServer({
     label: '[Next.js Standalone]',
     command: (port) => `PORT=${port} npm run dev`,

@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.heading_hover_hash:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.remark-highlight {
+  width: 75vw;
+}
+
+@media screen and (max-width: 768px) {
+  .remark-highlight {
+    width: 95vw;
+  }
+}
+
+article > *:not(.remark-highlight) {
+  text-align: left;
+  align-self: flex-start;
+  content-visibility: auto;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url(/fonts/inter-var.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url(/fonts/inter-var.woff2) format('woff2');
+}

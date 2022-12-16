@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { prefetch } from '@edgio/prefetch/window'
-import { createNextDataURL } from '@edgio/next/client'
+import { createNextDataURL } from '@/lib/operations'
 
 const MorePosts = ({ morePosts }) => {
   const [filteredPosts, setFilteredPosts] = useState(morePosts ? morePosts.filter((item) => item.hasOwnProperty('name')) : [])

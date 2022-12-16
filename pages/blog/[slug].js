@@ -40,33 +40,29 @@ export async function getServerSideProps({ req, params }) {
 }
 
 const Post = ({ data, origin }) => {
+  const encode = (content) => encodeURIComponent(content)
+  const ogImageOrigin = 'https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api'
+
   const [comments, setComments] = useState()
   const [post, setPost] = useState(data?.post ?? false)
   const [morePosts, setMorePosts] = useState(data?.morePosts ?? false)
+
+  const ogImageQuery = (post) => ({
+    title: encode(post?.content?.title),
+    image: encode(post?.content?.image),
+    mode: encode('true'),
+  })
+
   const [SEODetails, setSEODetails] = useState({
     description: post?.content?.intro,
     pubDate: post?.first_published_at,
     author: post?.content?.author?.name,
     canonical: `${origin}/blog/${post?.slug}`,
     title: `${post?.content?.title} - ${post?.content?.author?.name}`,
-    [post?.content?.image
-      ? 'image'
-      : 'some-random-key']: `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
-      post?.content?.title
-    )}&image=${encodeURIComponent(post?.content?.image)}&mode=${encodeURIComponent('true')}`,
+    [post?.content?.image ? 'image' : 'some-random-key']: `${ogImageOrigin}?${Object.keys(ogImageQuery(post))
+      .map((i) => `${i}=${ogImageQuery(post)[i]}`)
+      .join('&')}`,
   })
-
-  useEffect(() => {
-    try {
-      if (document.querySelector('link[href="/css/dark.css"]')) {
-      } else {
-        var darkCSS = document.createElement('link')
-        darkCSS.href = '/css/dark.css'
-        darkCSS.rel = 'stylesheet'
-        document.head.appendChild(darkCSS)
-      }
-    } catch (e) {}
-  }, [])
 
   useEffect(() => {
     let post,
@@ -90,11 +86,9 @@ const Post = ({ data, origin }) => {
         author: post?.content?.author?.name,
         canonical: `${origin}/blog/${post?.slug}`,
         title: `${post?.content?.title} - ${post?.content?.author?.name}`,
-        [post?.content?.image
-          ? 'image'
-          : 'some-random-key']: `https://rishi-raj-jain-html-og-image-default.layer0-limelight.link/api?title=${encodeURIComponent(
-          post?.content?.title
-        )}&image=${encodeURIComponent(post?.content?.image)}&mode=${encodeURIComponent('true')}`,
+        [post?.content?.image ? 'image' : 'some-random-key']: `${ogImageOrigin}?${Object.keys(ogImageQuery(post))
+          .map((i) => `${i}=${ogImageQuery(post)[i]}`)
+          .join('&')}`,
       })
     }
   }, [data])
@@ -116,7 +110,7 @@ const Post = ({ data, origin }) => {
         </div>
         <div className="mt-7 h-[1px] w-full bg-gray-200"></div>
         <article
-          className="prose mt-10 max-w-none text-sm dark:prose-light"
+          className="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light"
           dangerouslySetInnerHTML={{
             __html:
               post?.content?.long_text ??

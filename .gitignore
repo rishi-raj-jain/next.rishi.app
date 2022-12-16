@@ -27,6 +27,7 @@ yarn-error.log*
 
 # edgio files
 .edgio
+.edgio_temp
 
 # nextjs files
 .next

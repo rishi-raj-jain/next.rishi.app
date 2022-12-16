@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { Prefetch } from '@edgio/react'
 import { useEffect, useState } from 'react'
-import { createNextDataURL } from '@edgio/next/client'
-import classNames from 'classnames'
+import { createNextDataURL } from '@/lib/operations'
 
 const navLinks = [
   {
@@ -70,15 +69,11 @@ const Navbar = () => {
         </button>
         <div className="relative flex max-w-[258px] flex-row items-center space-x-5 overflow-x-scroll sm:max-w-none sm:overflow-x-hidden">
           {navLinks.map((item) => (
-            <Link
-              key={item.name}
-              href={item.pathname}
-              className={classNames({ [item.class]: item.hasOwnProperty('class') }, 'relative flex flex-row items-center space-x-3')}
-            >
-              <Prefetch url={createNextDataURL({ href: item.pathname })}>
-                <span className="text-md font-medium">{item.name}</span>
-              </Prefetch>
-            </Link>
+            <Prefetch key={item.name} url={createNextDataURL({ href: item.pathname })}>
+              <Link href={item.pathname} className={'text-md font-medium'}>
+                {item.name}
+              </Link>
+            </Prefetch>
           ))}
         </div>
       </div>

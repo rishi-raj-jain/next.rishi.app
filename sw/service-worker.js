@@ -57,7 +57,7 @@ new Prefetcher({
   .cache(/^https:\/\/(.*?)\.*\/.*/)
 
 function deepFetchAssets({ $el, el, $ }) {
-  let attributesToLookFor = ['href', 'src', 'url']
+  let attributesToLookFor = ['href', 'src', 'url', 'data-src', 'srcset']
   attributesToLookFor.forEach((i) => {
     let urlTemplate = $(el).attr(i)
     if (urlTemplate) {

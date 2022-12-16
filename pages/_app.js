@@ -28,35 +28,23 @@ const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(false)
   const [changingTo, setChangingTo] = useState('')
   useEffect(() => {
-    install()
-    prefetch('/css/dark.css', 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
-    document.querySelectorAll('link').forEach((i) => {
-      if (i.href) {
-        prefetch(i.href, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
-      }
-    })
-    document.querySelectorAll('script').forEach((i) => {
-      if (i.src) {
-        prefetch(i.src, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
-      }
-    })
-    document.querySelectorAll('img').forEach((i) => {
-      if (i.src) {
-        prefetch(i.src, 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
-      }
-      if (i.srcset) {
-        i.srcset.split(',').forEach((j) => {
-          prefetch(j.trim(), 'fetch', { maxAgeSeconds: 24 * 60 * 60 })
+    if (typeof window !== 'undefined')
+      window.addEventListener('load', () => {
+        install().then(() => {
+          const attrs = ['href', 'src', 'srcset', 'data-src']
+          attrs.forEach((j) => {
+            document.querySelectorAll(`[${j}^="/"]`).forEach((i) => {
+              prefetch(i.getAttribute(j), 'fetch', { maxAgeSeconds: 60 })
+            })
+          })
         })
-      }
-    })
+      })
     const handleRouteChange = (url, { shallow }) => {
       setLoading(true)
       if (url.match('/blog/+')) {
         fallbackMap[url] = <Post />
       }
       setChangingTo(url)
-      console.log(`App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`)
     }
     const handleRouteComplete = (url, { shallow }) => {
       setChangingTo('')
