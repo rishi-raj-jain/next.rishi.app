@@ -65,6 +65,14 @@ const Post = ({ data, origin }) => {
   })
 
   useEffect(() => {
+    window.addEventListener('load', () => {
+      var sc = document.createElement('script')
+      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
+      document.querySelector('#entire-article').insertAdjacentElement('afterend', sc)
+    })
+  }, [])
+
+  useEffect(() => {
     let post,
       morePosts = null
     if (data) {
@@ -97,7 +105,7 @@ const Post = ({ data, origin }) => {
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails} />
       <div className="w-full md:max-w-2xl">
-        <div className="flex w-full flex-col items-center">
+        <div id="entire-article" className="flex w-full flex-col items-center">
           <DateString date={new Date(SEODetails?.pubDate)} />
           <h1
             className={classNames('mt-3 mb-7 text-center text-2xl font-bold sm:text-4xl', {
