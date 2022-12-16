@@ -65,14 +65,6 @@ const Post = ({ data, origin }) => {
   })
 
   useEffect(() => {
-    window.addEventListener('load', () => {
-      var sc = document.createElement('script')
-      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
-      document.querySelector('#entire-article').insertAdjacentElement('afterend', sc)
-    })
-  }, [])
-
-  useEffect(() => {
     let post,
       morePosts = null
     if (data) {
@@ -99,13 +91,18 @@ const Post = ({ data, origin }) => {
           .join('&')}`,
       })
     }
+    window.addEventListener('load', () => {
+      var sc = document.createElement('script')
+      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
+      document.querySelector('.before-article').appendChild(sc)
+    })
   }, [data])
 
   return (
     <div className="flex w-full flex-col items-center">
       <SEO {...SEODetails} />
       <div className="w-full md:max-w-2xl">
-        <div id="entire-article" className="flex w-full flex-col items-center">
+        <div className="flex w-full flex-col items-center">
           <DateString date={new Date(SEODetails?.pubDate)} />
           <h1
             className={classNames('mt-3 mb-7 text-center text-2xl font-bold sm:text-4xl', {
@@ -117,6 +114,7 @@ const Post = ({ data, origin }) => {
           <Author post={post} {...SEODetails} />
         </div>
         <div className="mt-7 h-[1px] w-full bg-gray-200"></div>
+        <div className="before-article h-[90px] w-full max-w-full py-2"></div>
         <article
           className="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light"
           dangerouslySetInnerHTML={{
