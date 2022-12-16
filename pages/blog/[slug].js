@@ -65,11 +65,13 @@ const Post = ({ data, origin }) => {
   })
 
   useEffect(() => {
-    window.addEventListener('load', () => {
+    setTimeout(() => {
       var sc = document.createElement('script')
-      sc.src = 'https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=1'
+      sc.src = `https://servedby.studads.com/ads/ads.php?t=MTcxMTg7MTA5OTg7aG9yaXpvbnRhbC5sZWFkZXJib2FyZA==&index=${
+        Math.floor(Math.random() * 10) + 1
+      }`
       document.querySelector('.before-article').appendChild(sc)
-    })
+    }, 1000)
   }, [])
 
   useEffect(() => {
