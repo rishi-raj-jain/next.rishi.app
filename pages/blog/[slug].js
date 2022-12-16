@@ -114,7 +114,7 @@ const Post = ({ data, origin }) => {
           <Author post={post} {...SEODetails} />
         </div>
         <div className="mt-7 h-[1px] w-full bg-gray-200"></div>
-        <div className="before-article h-[90px] w-full max-w-full py-2"></div>
+        <div className="before-article mt-2 h-[90px] w-full max-w-full overflow-y-scroll py-2"></div>
         <article
           className="prose mt-10 flex max-w-none flex-col items-center text-sm dark:prose-light"
           dangerouslySetInnerHTML={{
