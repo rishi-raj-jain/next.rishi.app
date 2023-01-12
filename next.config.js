@@ -9,6 +9,10 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: '**.in',
+      },
+      {
+        protocol: 'https',
         hostname: '**.link',
       },
       {
