@@ -29,8 +29,9 @@ jobs:
     needs: authorization
     runs-on: ubuntu-latest
     # if: needs.authorization.outputs.authorized == 'true'
+    if: github.repository == 'rishi-raj-jain/next.rishi.app'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: ${{github.event.pull_request.head.repo.full_name}}
           ref: ${{github.event.pull_request.head.ref}}
@@ -42,14 +43,8 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           debug: false
-          action: score
-          # scoring_beginning: |
-          #   Hi ChatGPT, I have a pull request with title "${{ github.event.pull_request.title }}" and the description is as follows,
-          #   > ${{ github.event.pull_request.body }}
-          #   I would like to give you the whole diff of the pull request and you need to give a score after
-          #   reviewing the pull request. The score should be a number between 0 and 100, and 85 means the
-          #   the pull request is basically acceptable. You just need to reply a number between 0 and 100,
-          #   e.g., "85", and a comment within 30 words. Reply "Acceptable" to confirm.
+          action: review
+          review_comment_lgtm: true
 
       - uses: unsafecoerce/chatgpt-action@main
         env:
@@ -57,5 +52,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           debug: false
-          action: review
-          review_comment_lgtm: true
+          action: score
