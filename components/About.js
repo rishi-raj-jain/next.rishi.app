@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import classNames from 'classnames'
-import TimelineIte from './TimelineItem'
-
+import TimelineIte from './TimelineItem
 const fallData = {}
 for (let i = 0; i < 5; i++) {
   fallData[i] = new Array(5).fill({ content: { Title: '', Description: '' } })
