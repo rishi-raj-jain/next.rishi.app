@@ -14,7 +14,7 @@ jobs:
   authorization:
     runs-on: ubuntu-latest
     outputs:
-      authorized: ${{ steps.check_author.outputs.authorized }}
+      authorized: ${{ steps.check_author.outputs }}
     steps:
       - name: Check if the author is the pull request creator
         id: check_author
