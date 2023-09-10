@@ -14,22 +14,21 @@ jobs:
   authorization:
     runs-on: ubuntu-latest
     outputs:
-      authorized: ${{ steps.check_author.outputs }}
+      authorized_boolean: ${{ steps.check_author.outputs.authorized }}
     steps:
       - name: Check if the author is the pull request creator
         id: check_author
         run: |
           if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.pull_request.user.login }}" ]]; then
-            echo "true"  # Output 'true' if authorized
+            run: echo "authorized='true'" >> $GITHUB_OUTPUT 
           else
-            echo "false" # Output 'false' if not authorized
+            run: echo "authorized='false'" >> $GITHUB_OUTPUT
           fi
 
   test:
     needs: authorization
     runs-on: ubuntu-latest
-    if: needs.authorization.outputs.authorized == 'true'
-    # if: github.repository == 'rishi-raj-jain/next.rishi.app'
+    if: needs.authorization.outputs.authorized_boolean == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
