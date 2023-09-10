@@ -1,7 +1,7 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 const noTailwindCode = {
-  pre: false,
+  // pre: false,
   code: false,
   'pre code': false,
   'code::before': false,
