@@ -23,6 +23,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'placehold.jp',
       },
+      {
+        protocol: 'https',
+        hostname: 'placehold.jp',
+      },
     ],
   },
 }
