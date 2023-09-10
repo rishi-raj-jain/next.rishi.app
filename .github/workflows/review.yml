@@ -45,7 +45,7 @@ jobs:
           debug: false
           action: review
           review_comment_lgtm: true
-
+          path_filters: '**/*'
       - uses: unsafecoerce/chatgpt-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
