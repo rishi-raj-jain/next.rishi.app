@@ -28,7 +28,7 @@ jobs:
   test:
     needs: authorization
     runs-on: ubuntu-latest
-    if: needs.authorization.outputs.authorized == 'true'
+    # if: needs.authorization.outputs.authorized == 'true'
     steps:
       - uses: actions/checkout@v2
         with:
