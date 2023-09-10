@@ -43,13 +43,13 @@ jobs:
         with:
           debug: false
           action: score
-          scoring_beginning: |
-            Hi ChatGPT, I have a pull request with title "${{ github.event.pull_request.title }}" and the description is as follows,
-            > ${{ github.event.pull_request.body }}
-            I would like to give you the whole diff of the pull request and you need to give a score after
-            reviewing the pull request. The score should be a number between 0 and 100, and 85 means the
-            the pull request is basically acceptable. You just need to reply a number between 0 and 100,
-            e.g., "85", and a comment within 30 words. Reply "Acceptable" to confirm.
+          # scoring_beginning: |
+          #   Hi ChatGPT, I have a pull request with title "${{ github.event.pull_request.title }}" and the description is as follows,
+          #   > ${{ github.event.pull_request.body }}
+          #   I would like to give you the whole diff of the pull request and you need to give a score after
+          #   reviewing the pull request. The score should be a number between 0 and 100, and 85 means the
+          #   the pull request is basically acceptable. You just need to reply a number between 0 and 100,
+          #   e.g., "85", and a comment within 30 words. Reply "Acceptable" to confirm.
 
       - uses: unsafecoerce/chatgpt-action@main
         env:
