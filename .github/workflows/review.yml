@@ -1,4 +1,4 @@
-name: rishi.app PR Code Review via Open AI
+name: Capgo PR Code Review via Open AI
 
 permissions:
   contents: read
@@ -6,10 +6,6 @@ permissions:
 
 on:
   pull_request_target:
-    types:
-      - opened
-      - synchronize
-  pull_request:
     types:
       - opened
       - synchronize
@@ -23,7 +19,7 @@ jobs:
       - name: Check if the author is the pull request creator
         id: check_author
         run: |
-          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.pull_request.user.login }}" ]]; then
+          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.repository.owner.login }}" ]]; then
             echo "::set-output name=authorized::true"
           else
             echo "::set-output name=authorized::false"
