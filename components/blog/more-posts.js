@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link
 import { useEffect, useState } from 'react'
 import { prefetch } from '@edgio/prefetch/window'
 import { createNextDataURL } from '@/lib/operations'
