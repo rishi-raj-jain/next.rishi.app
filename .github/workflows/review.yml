@@ -20,9 +20,9 @@ jobs:
         id: check_author
         run: |
           if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.pull_request.user.login }}" ]]; then
-            echo "authorized='true'" >> $GITHUB_OUTPUT 
+            echo "::set-output name=authorized::true"
           else
-            echo "authorized='false'" >> $GITHUB_OUTPUT
+            echo "::set-output name=authorized::false"
           fi
 
   test:
