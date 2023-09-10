@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import classNames from 'classnames'
+import classNames from 'classnames
 import TimelineItem from './TimelineItem'
 
 const fallData = {}
