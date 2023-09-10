@@ -1,4 +1,4 @@
 module.exports = {
-  connector: './edgio',
+  connector: './edgios',
   routes: './edgio/routes.js',
 }
