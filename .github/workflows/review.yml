@@ -28,8 +28,8 @@ jobs:
   test:
     needs: authorization
     runs-on: ubuntu-latest
-    # if: needs.authorization.outputs.authorized == 'true'
-    if: github.repository == 'rishi-raj-jain/next.rishi.app'
+    if: needs.authorization.outputs.authorized == 'true'
+    # if: github.repository == 'rishi-raj-jain/next.rishi.app'
     steps:
       - uses: actions/checkout@v3
         with:
