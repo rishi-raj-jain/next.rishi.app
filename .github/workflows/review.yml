@@ -14,7 +14,7 @@ jobs:
   authorization:
     runs-on: ubuntu-latest
     outputs:
-      authorized_boolean: ${{ steps.check_author.outputs.authorized }}
+      authorized: ${{ steps.check_author.outputs.authorized }}
     steps:
       - name: Check if the author is the pull request creator
         id: check_author
@@ -28,7 +28,7 @@ jobs:
   test:
     needs: authorization
     runs-on: ubuntu-latest
-    if: needs.authorization.outputs.authorized_boolean == 'true'
+    if: needs.authorization.outputs.authorized == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
