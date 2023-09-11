@@ -17,7 +17,7 @@ on:
 
 jobs:
   review-and-score:
-    if: github.event.pull_request.head.repo.permissions.admin == true
+    if: github.event.pull_request.head.repo.permissions.push == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
