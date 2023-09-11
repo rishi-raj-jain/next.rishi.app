@@ -5,7 +5,6 @@ const { DeploymentBuilder } = require('@edgio/core/deploy')
 
 const appDir = process.cwd()
 const SW_SOURCE = join(appDir, 'sw', 'service-worker.js')
-const SW_DEST = join(appDir, '.edgio_temp', 'service-worker.js')
 
 module.exports = function () {
   if (existsSync(SW_SOURCE)) {
