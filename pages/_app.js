@@ -1,5 +1,4 @@
 import Home from 'pages'
-import '@/styles/global.css'
 import Post from './blog/[slug]'
 import Layer0RUM from 'edgio/rum'
 import { useRouter } from 'next/router'
