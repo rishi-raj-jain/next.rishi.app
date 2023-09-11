@@ -1,14 +1,11 @@
 name: Capgo PR Code Review via Open AI
 
 permissions:
+  checks: write
   contents: read
   pull-requests: write
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
   pull_request_target:
     types:
       - opened
@@ -31,8 +28,8 @@ jobs:
         with:
           debug: false
           action: review
-          review_comment_lgtm: true
           path_filters: '**/*'
+          review_comment_lgtm: true
 
       - uses: unsafecoerce/chatgpt-action@main
         env:
