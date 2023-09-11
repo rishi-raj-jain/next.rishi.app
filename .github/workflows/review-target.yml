@@ -1,0 +1,58 @@
+name: Capgo PR (from fork) Code Review via Open AI
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the author is the pull request creator
+        id: check_author
+        run: |
+          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.repository.owner.login }}" ]]; then
+            echo "PR author is the repository owner, no approval needed."
+          else
+            echo "Requesting approval..."
+            # Use the GitHub API to request review from the repository owner
+            curl -s -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -d '{"reviewers":["'"$REPO_OWNER"'"]}' \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers"
+          fi
+
+  execute-on-approval:
+    needs: approval
+    runs-on: ubuntu-latest
+    if: ${{ needs.approval.result == 'success' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{github.event.pull_request.head.ref}}
+          submodules: false
+
+      - uses: unsafecoerce/chatgpt-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          debug: false
+          action: review
+          review_comment_lgtm: true
+          path_filters: '**/*'
+
+      - uses: unsafecoerce/chatgpt-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          debug: false
+          action: score
+          path_filters: '**/*'
