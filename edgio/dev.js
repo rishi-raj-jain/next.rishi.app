@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join } = requ
 const { existsSync } = require('fs')
 const { createDevServer } = require('@edgio/core/dev')
 const { DeploymentBuilder } = require('@edgio/core/deploy')
