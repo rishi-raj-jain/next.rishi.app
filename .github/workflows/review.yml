@@ -1,6 +1,7 @@
 name: Capgo PR Code Review via Open AI
 
 permissions:
+  checks: write
   contents: read
   pull-requests: write
 
@@ -11,26 +12,8 @@ on:
       - synchronize
 
 jobs:
-  approval:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if the author is the pull request creator
-        id: check_author
-        run: |
-          if [[ "${{ github.event.pull_request.user.login }}" == "${{ github.event.repository.owner.login }}" ]]; then
-            echo "PR author is the repository owner, no approval needed."
-          else
-            echo "Requesting approval..."
-            # Use the GitHub API to request review from the repository owner
-            curl -s -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              -d '{"reviewers":["'"$REPO_OWNER"'"]}' \
-              "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers"
-          fi
-
   execute-on-approval:
-    needs: approval
     runs-on: ubuntu-latest
-    if: ${{ needs.approval.result == 'success' }}
     steps:
       - uses: actions/checkout@v3
         with:
