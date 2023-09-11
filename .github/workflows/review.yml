@@ -10,9 +10,13 @@ on:
     types:
       - opened
       - synchronize
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
 
 jobs:
-  execute-on-approval:
+  review-and-score:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
