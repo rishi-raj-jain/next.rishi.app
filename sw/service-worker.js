@@ -1,4 +1,4 @@
-import { skipWaiting, clientsClaim } from 'workbox-core'
+import { skipWaiting, clientsClaim } from 'workbox-core
 import { Prefetcher, prefetch } from '@edgio/prefetch/sw'
 import DeepFetchPlugin from '@edgio/prefetch/sw/DeepFetchPlugin'
 
