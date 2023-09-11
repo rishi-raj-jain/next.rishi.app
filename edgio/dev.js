@@ -3,8 +3,7 @@ const { existsSync } = require('fs')
 const { createDevServer } = require('@edgio/core/dev')
 const { DeploymentBuilder } = require('@edgio/core/deploy')
 
-const appDir = process.cwd()
-const SW_SOURCE = join(appDir, 'sw', 'service-worker.js')
+const appDir = process.cwd()e-worker.js')
 const SW_DEST = join(appDir, '.edgio_temp', 'service-worker.js')
 
 module.exports = function () {
