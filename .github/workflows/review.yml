@@ -1,7 +1,6 @@
 name: Capgo PR Code Review via Open AI
 
 permissions:
-  checks: write
   contents: read
   pull-requests: write
 
@@ -17,7 +16,6 @@ on:
 
 jobs:
   review-and-score:
-    if: github.event.pull_request.head.repo.permissions.push == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
